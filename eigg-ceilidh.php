@@ -8,7 +8,7 @@
 <html lang="en">
 
 <head>
-  <title>Contact | Alba Cruises</title>
+  <title> Eigg Ceilidh| Alba Cruises</title>
 
   <!-- * Meta data for indexing-->
   <meta name="description" content="The home page for Alba Cruises." />
