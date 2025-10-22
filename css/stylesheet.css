@@ -1,0 +1,19 @@
+/* Saul Maylin 21005729
+Date: 22/10/2025
+v1
+Colour CSS
+ */
+
+.bodyDefault {
+    background-color: #DFDEDE;
+}
+.nav-link.border {
+    color: black;
+    background-color: #D9D9D9;
+}
+
+.nav-colour {
+    background-color: #9BBDD9;
+}
+
+
