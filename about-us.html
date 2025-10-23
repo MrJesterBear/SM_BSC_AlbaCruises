@@ -17,7 +17,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- * Links for both the stylesheet for pazas and a favicon for the site.-->
-  <link rel="stylesheet" href="/css/stylesheet.css" />
 
   <!-- ! Import Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -27,6 +26,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
     crossorigin="anonymous"></script>
+
+  <!-- ! Import custom stylesheet -->
+  <link rel="stylesheet" href="/css/stylesheet.css" />
 
   <link rel="icon" type="image/x-icon" href="/assets/universal/logo.png" />
 
