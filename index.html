@@ -15,7 +15,6 @@
   <meta name="keywords" content="Alba, Cruises, Travel, Adventure, booking, ferry" />
   <meta name="author" content="21005729 Saul Maylin" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="index, follow" />
 
   <!-- * Links for both the stylesheet for pazas and a favicon for the site.-->
   <link rel="stylesheet" href="/css/stylesheet.css" />
