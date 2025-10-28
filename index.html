@@ -1,6 +1,6 @@
 <!-- ? Name:  21005729 Saul Maylin
-? Date: 22/10/2025
-? v1
+? Date: 28/10/2025
+? v1.1
 ? Project: Alba Cruises
 ? -->
 
@@ -75,13 +75,21 @@
       </div>
 
       <!-- Booking Field -->
-      <div class="col-md">
+      <div class="col-md booking-form">
         <!-- Header Text -->
         <h1> Alba Cruises</h1>
         <p class="sm"> A local ferry company, devoted to taking you, your family and friends to the lush Scottish
           islands in the north east. Enjoy your time in Scotland.</p>
 
-
+            <script>
+              // Fetch the booking form and insert it here.
+              fetch('/assets/html/booking-form.html') // Fetches the booking form HTML file.
+                .then(response => response.text()) // Converts the response to text.
+                .then(data => { // Inserts the fetched HTML into the booking-form div.
+                  var bookingForm = document.getElementsByClassName('booking-form')[0];
+                  bookingForm.innerHTML += data;
+                });
+            </script>
       </div>
 
     </div> <!-- End of row -->
