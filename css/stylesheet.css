@@ -4,6 +4,7 @@ v1
 Colour CSS
  */
 
+/* Colours */
 .bodyDefault {
     background-color: #DFDEDE;
 }
@@ -18,4 +19,11 @@ Colour CSS
 
 .navbar-toggler {
     background-color: #D9D9D9;
+}
+
+/* Dynamic remove for mobile */
+@media (max-width: 768px) {
+    .destroy-on-mobile {
+        display: none;
+    }
 }
