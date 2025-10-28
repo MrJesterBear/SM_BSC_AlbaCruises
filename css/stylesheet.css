@@ -21,6 +21,15 @@ Colour CSS
     background-color: #D9D9D9;
 }
 
+.primary-button {
+    background-color: #FEB0ED;
+    font-weight: bold;
+}
+
+.primary-button:hover { 
+    background-color: #fa99e5;
+}
+
 /* Dynamic remove for mobile */
 @media (max-width: 768px) {
     .destroy-on-mobile {
