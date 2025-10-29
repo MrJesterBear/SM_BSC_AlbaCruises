@@ -1,7 +1,7 @@
 <!--  
  Saul Maylin
- 28/10/2025
- v1
+ 29/10/2025
+ v1.1
 Booking Form for Alba Cruises
 -->
 
@@ -9,14 +9,73 @@ Booking Form for Alba Cruises
 <html lang="en">
 
 <body>
-<!-- Booking Form Start -->
- <!-- Route -> Passengers (Adult, Teen, Child), Departing Date, Returning Date (if return selected.) -->
- <div>
-  <form action="/book-ticket.php" method="GET">
-    
-  </form>
-  <!-- Booking Form End  -->
- </div>
+    <!-- Booking Form Start -->
+    <!-- Route -> Passengers (Adult, Teen, Child), Departing Date, Returning Date (if return selected.) -->
+    <div class="row bg-primary-subtle">
+        <!-- One-Way and Return Buttons -->
+        <div class="col d-flex justify-content-end">
+            <button type="button" id="one-way-btn">One-Way -></button>
+            <button type="button" id="return-btn">Return <-></button>
+        </div>
+
+        <div class="container-fluid">
+            <form action="/book-ticket.php" method="GET">
+                <div class="row">
+
+                    <!-- Routes -->
+                    <div class="col">
+                        <label for="route">Route</label> <br>
+                        <select id="route" name="route" required>
+                            <option value="MallToEigg">Mallaig -> Eigg</option>
+                            <option value="EiggToMuck">Eigg -> Muck</option>
+                            <option value="MuckToEigg">Muck -> Eigg</option>
+                            <option value="EiggToMall">Eigg -> Mallaig</option>
+                        </select>
+                    </div>
+
+                    <!-- Passengers -->
+                    <div class="col">
+                        <label for="passengers">Passengers</label>
+
+                        <div>
+                            <label for="adult">Adult (17+):</label>
+                            <input type="number" id="adult" name="Adult" min="0" value="1" required>
+                        </div>
+                        <div>
+                            <label for="adult">Teen (11-16):</label>
+                            <input type="number" id="adult" name="Teen" min="0" value="1" required>
+                        </div>
+                        <div>
+                            <label for="teen">Child (3-10):</label>
+                            <input type="number" id="teen" name="Child" min="0" value="0" required>
+                        </div>
+                        <div>
+                            <label for="child">Infant (2 & Under):</label>
+                            <input type="number" id="child" name="Infant" min="0" value="0" required>
+                        </div>
+                    </div>
+
+                    <!-- Departing Date-->
+                    <div class="col">
+                        <label for="depart-date">Departing Date:</label> <br>
+                        <input type="date" min="" id="depart-date" name="departDate" required>
+                    </div>
+
+                    <!-- Returning Date -->
+                    <div class="col">
+                        <label for="return-date">Returning Date:</label> <br>
+                        <input type="date" min="" id="return-date" name="returnDate" disabled>
+                    </div>
+                </div>
+
+                <div class="row py-4 text-center">
+                    <button type="submit" class="btn primary-button">Book Now!</button>
+                </div>
+            </form>
+        </div>
+        <!-- Booking Form End  -->
+    </div>
+
 </body>
 
 </html>
