@@ -4,6 +4,7 @@ v1
 Colour CSS
  */
 
+/* Colours */
 .bodyDefault {
     background-color: #DFDEDE;
 }
@@ -18,4 +19,43 @@ Colour CSS
 
 .navbar-toggler {
     background-color: #D9D9D9;
+}
+
+.primary-button {
+    background-color: #FEB0ED;
+    font-weight: bold;
+}
+
+.secondary-button {
+    background-color: #ffffff;
+    font-weight: bold;
+}
+
+.primary-button:hover { 
+    background-color: #fa99e5;
+}
+
+.secondary-button:hover {
+    background-color: #e6e6e6;
+}
+
+.primary-button:disabled {
+    background-color: #ffc9f2;
+    cursor: not-allowed;
+}
+
+.secondary-button:disabled {
+    background-color: #a39f9f;
+    cursor: not-allowed;
+}
+
+.main-background {
+    background-color: #72AAD9;
+}
+
+/* Dynamic remove for mobile */
+@media (max-width: 768px) {
+    .destroy-on-mobile {
+        display: none;
+    }
 }
