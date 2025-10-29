@@ -26,8 +26,31 @@ Colour CSS
     font-weight: bold;
 }
 
+.secondary-button {
+    background-color: #ffffff;
+    font-weight: bold;
+}
+
 .primary-button:hover { 
     background-color: #fa99e5;
+}
+
+.secondary-button:hover {
+    background-color: #e6e6e6;
+}
+
+.primary-button:disabled {
+    background-color: #ffc9f2;
+    cursor: not-allowed;
+}
+
+.secondary-button:disabled {
+    background-color: #a39f9f;
+    cursor: not-allowed;
+}
+
+.main-background {
+    background-color: #72AAD9;
 }
 
 /* Dynamic remove for mobile */

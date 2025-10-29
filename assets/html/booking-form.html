@@ -11,11 +11,11 @@ Booking Form for Alba Cruises
 <body>
     <!-- Booking Form Start -->
     <!-- Route -> Passengers (Adult, Teen, Child), Departing Date, Returning Date (if return selected.) -->
-    <div class="row bg-primary-subtle">
+    <div class="row main-background">
         <!-- One-Way and Return Buttons -->
         <div class="col d-flex justify-content-end">
-            <button type="button" id="one-way-btn">One-Way -></button>
-            <button type="button" id="return-btn">Return <-></button>
+            <button class="btn secondary-button" type="button" id="one-way-btn" disabled>One-Way -></button>
+            <button class="btn secondary-button" type="button" id="return-btn">Return <-></button>
         </div>
 
         <div class="container-fluid">
@@ -39,19 +39,19 @@ Booking Form for Alba Cruises
 
                         <div>
                             <label for="adult">Adult (17+):</label>
-                            <input type="number" id="adult" name="Adult" min="0" value="1" required>
+                            <input type="number" id="adult" name="Adult" min="0" value="1">
                         </div>
                         <div>
-                            <label for="adult">Teen (11-16):</label>
-                            <input type="number" id="adult" name="Teen" min="0" value="1" required>
+                            <label for="Teen">Teen (11-16):</label>
+                            <input type="number" id="Teen" name="Teen" min="0" value="0">
                         </div>
                         <div>
                             <label for="teen">Child (3-10):</label>
-                            <input type="number" id="teen" name="Child" min="0" value="0" required>
+                            <input type="number" id="Child" name="Child" min="0" value="0" >
                         </div>
                         <div>
-                            <label for="child">Infant (2 & Under):</label>
-                            <input type="number" id="child" name="Infant" min="0" value="0" required>
+                            <label for="child">Infant (0-2):</label>
+                            <input type="number" id="Infant" name="Infant" min="0" value="0">
                         </div>
                     </div>
 

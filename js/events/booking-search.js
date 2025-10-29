@@ -17,6 +17,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!returnDateInput.hasAttribute("disabled")) {
       returnDateInput.setAttribute("disabled", "");
       returnDateInput.value = "";
+
+      // Enable return button if disabled and disable one way button
+      if (returnBtn.hasAttribute("disabled")) {
+        returnBtn.removeAttribute("disabled");
+        oneWayBtn.setAttribute("disabled", "");
+      }
     }
   });
 
@@ -24,6 +30,12 @@ document.addEventListener("DOMContentLoaded", () => {
   returnBtn.addEventListener("click", () => {
     if (returnDateInput.hasAttribute("disabled")) {
       returnDateInput.removeAttribute("disabled");
+
+      // Enable one way button if disabled and disable return button
+      if (oneWayBtn.hasAttribute("disabled")) {
+        oneWayBtn.removeAttribute("disabled");
+        returnBtn.setAttribute("disabled", "");
+      }
     }
   });
 
