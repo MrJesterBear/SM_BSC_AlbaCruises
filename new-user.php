@@ -1,6 +1,6 @@
 <!-- ? Name:  21005729 Saul Maylin
-? Date: 22/10/2025
-? v1
+? Date: 29/10/2025
+? v1.1
 ? Project: Alba Cruises
 ? -->
 
@@ -35,6 +35,16 @@
 
 </head>
 
+<?php
+// Double check user is not logged in.
+session_start();
+
+if (isset($_SESSION['UID'])) {
+    // If user is logged in, redirect to the home page.
+    header("Location: account.php");
+}
+?>
+
 <body class="bodyDefault">
 
   <!-- * Secondary nav, Image & Nav -->
@@ -63,9 +73,14 @@
     </script>
   </nav>
 
+  <!-- Error Warning -->
+  <?php 
+  include_once("./php/imports/error-handling.php");
+  ?>
+
   <!-- * Main Content -->
 
-  <div class="container-fluid text-center">
+  <div class="container-fluid text-center mt-4 mb-4">
 
   </div>
 
