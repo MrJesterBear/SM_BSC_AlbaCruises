@@ -3,7 +3,7 @@
 // ? Date: 29/10/2025
 // ? v1.2
 // ? Project: Project Crawler
-// ? Connection to the database
+// ? Connection to the database https://eksith.wordpress.com/2013/10/12/storing-database-credentials-and-other-stuff-in-php-ini/
 
 function loadDatabaseConfig($vars = [])
 {

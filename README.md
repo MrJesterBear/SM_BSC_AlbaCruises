@@ -22,7 +22,7 @@ This is due to the connection to the database being done through the get_cfg_var
 
 ## Test Credentials
 User Type | Email | Password
-============================
+
 Basic | jerald.davidson@hotmail.co.uk | jerald4life!
 Staff | rochele.whitty@albacruises.scot | cruisesAreKing#
 
