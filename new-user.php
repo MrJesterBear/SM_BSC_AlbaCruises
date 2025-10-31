@@ -1,3 +1,13 @@
+<?php
+// Double check user is not logged in.
+session_start();
+
+if (isset($_SESSION['UID'])) {
+    // If user is logged in, redirect to the home page.
+    header("Location: account.php");
+}
+?>
+
 <!-- ? Name:  21005729 Saul Maylin
 ? Date: 29/10/2025
 ? v1.1
@@ -34,16 +44,6 @@
 
 
 </head>
-
-<?php
-// Double check user is not logged in.
-session_start();
-
-if (isset($_SESSION['UID'])) {
-    // If user is logged in, redirect to the home page.
-    header("Location: account.php");
-}
-?>
 
 <body class="bodyDefault">
 
