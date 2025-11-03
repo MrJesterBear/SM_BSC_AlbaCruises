@@ -8,25 +8,30 @@ function validateForm(event, form) {
   const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
   let passValid = true;
-  let usernameValid = true;
   let emailValid = true;
+  let firstNameValid = true;
+  let lastNameValid = true;
 
   let password;
-  let username;
   let email;
+  let firstName;
+  let lastName;
 
   let passwordError;
-  let usernameError;
   let emailError;
+  let firstNameError;
+  let lastNameError;
 
   switch (form) {
     case "register":
       password = document.getElementsByClassName("password")[1].value;
-      username = document.getElementsByClassName("username")[0].value;
+      firstName = document.getElementsByClassName("firstName")[0].value;
+      lastName = document.getElementsByClassName("lastName")[0].value;
       email = document.getElementsByClassName("email")[1].value;
 
       passwordError = document.getElementsByClassName("passwordError")[1];
-      usernameError = document.getElementsByClassName("usernameError")[0];
+      firstNameError = document.getElementsByClassName("firstNameError")[0];
+      lastNameError = document.getElementsByClassName("lastNameError")[0];
       emailError = document.getElementsByClassName("emailError")[1];
 
       //? Email Validation
@@ -69,23 +74,38 @@ function validateForm(event, form) {
         passwordError.textContent = "";
       }
 
-      //? Username Validation
-      if (username === "") {
+      //? Name Validation
+      // ! First Name Empty Field
+      if (firstName === "") {
         usernameValid = false;
 
-        // Error Message
-        usernameError.textContent = "Username must be filled out to proceed";
-        usernameError.style.color = "red";
+        // Display error message
+        firstNameError.textContent = "First name must be provided to proceed.";
+        firstNameError.style.color = "red";
       }
 
-      if (usernameValid) {
-        usernameError.textContent = "";
+      //  ! Last Name Empty Field
+      if (lastName === "") {
+        usernameValid = false;
+
+        // Display error message
+        lastNameError.textContent = "Last name must be provided to proceed.";
+        lastNameError.style.color = "red";
+      }
+
+      // if valid, clear error
+      if (firstNameValid) {
+        firstNameError.textContent = "";
+      }
+
+      if (lastNameValid) {
+        lastNameError.textContent = "";
       }
 
       // if true, form passes. if not, form fails.
-      if (passValid && emailValid && usernameValid) {
+      if (passValid && emailValid && firstNameValid && lastNameValid) {
         event.preventDefault();
-        const handler = new userFormHandling(email, username, password);
+        const handler = new userFormHandling(firstName, lastName, email, password);
         handler.registerUser();
       } else {
         event.preventDefault();
@@ -143,8 +163,8 @@ function validateForm(event, form) {
       // if true, form passes. if not, form fails.
       if (passValid && emailValid) {
         event.preventDefault();
-        // const handler = new userFormHandling(email, "", password);
-        // handler.loginUser();
+        const handler = new userFormHandling("", "", email, password);
+        handler.loginUser();
       } else {
         event.preventDefault();
       }
@@ -171,8 +191,8 @@ function validateForm(event, form) {
 
       if (emailValid) {
         event.preventDefault();
-        // const handler = new userFormHandling(email, "", "");
-        // handler.resetUser();
+        const handler = new userFormHandling("", "", email, password);
+        handler.resetUser();
       } else {
         event.preventDefault();
       }
