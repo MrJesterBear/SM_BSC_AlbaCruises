@@ -31,8 +31,8 @@ class User
         // Execute
         if ($stmt->execute()) { // success
 
-            // Prepare statement to get the UID of the newly created account.
-            $stmt2 = $DB->prepare("SELECT UID FROM AlbaCustomers WHERE email = ?");
+            // Prepare statement to get the customerID of the newly created account.
+            $stmt2 = $DB->prepare("SELECT customerID FROM AlbaCustomers WHERE email = ?");
             $stmt2->bind_param("s", $this->email);
 
             // if the result is successful, get the ID.

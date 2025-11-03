@@ -105,12 +105,7 @@ function validateForm(event, form) {
       // if true, form passes. if not, form fails.
       if (passValid && emailValid && firstNameValid && lastNameValid) {
         event.preventDefault();
-        const handler = new userFormHandling(
-          firstName,
-          lastName,
-          email,
-          password
-        );
+        const handler = new userFormHandling(firstName, lastName, email, password);
         handler.registerUser();
       } else {
         event.preventDefault();
