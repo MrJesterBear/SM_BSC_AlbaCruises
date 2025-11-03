@@ -1,3 +1,13 @@
+<?php
+// Double check user is not logged in.
+session_start();
+
+if (!isset($_SESSION['UID'])) {
+  // If user is not logged in, redirect to the home page.
+  header("Location: /");
+}
+?>
+
 <!-- ? Name:  21005729 Saul Maylin
 ? Date: 22/10/2025
 ? v1
@@ -66,7 +76,9 @@
   <!-- * Main Content -->
 
   <div class="container-fluid text-center">
-
+  <?php 
+  echo "Welcome, ".$_SESSION["UID"]."!";
+  ?>
   </div>
 
   <!-- Footer -->

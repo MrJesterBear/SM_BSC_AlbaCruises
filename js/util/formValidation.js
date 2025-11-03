@@ -8,8 +8,9 @@ function validateForm(event, form) {
   const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
   let passValid = true;
-  let usernameValid = true;
   let emailValid = true;
+  let firstNameValid = true;
+  let lastNameValid = true;
 
   let password;
   let email;
@@ -167,8 +168,8 @@ function validateForm(event, form) {
       // if true, form passes. if not, form fails.
       if (passValid && emailValid) {
         event.preventDefault();
-        // const handler = new userFormHandling(email, "", password);
-        // handler.loginUser();
+        const handler = new userFormHandling("", "", email, password);
+        handler.loginUser();
       } else {
         event.preventDefault();
       }
@@ -195,8 +196,8 @@ function validateForm(event, form) {
 
       if (emailValid) {
         event.preventDefault();
-        // const handler = new userFormHandling(email, "", "");
-        // handler.resetUser();
+        const handler = new userFormHandling("", "", email, password);
+        handler.resetUser();
       } else {
         event.preventDefault();
       }

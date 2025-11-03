@@ -1,16 +1,16 @@
 <?php
-// Double check user is not logged in.
+// Double check user is  logged in.
 session_start();
 
 if (isset($_SESSION['UID'])) {
-  // If user is logged in, redirect to the home page.
+  // If user is logged in, redirect to the account page.
   header("Location: account.php");
 }
 ?>
 
 <!-- ? Name:  21005729 Saul Maylin
-? Date: 29/10/2025
-? v1.1
+? Date: 03/11/2025
+? v2
 ? Project: Alba Cruises
 ? -->
 
@@ -39,6 +39,9 @@ if (isset($_SESSION['UID'])) {
 
   <!-- ! Import custom stylesheet -->
   <link rel="stylesheet" href="/css/stylesheet.css" />
+
+  <!-- Import jQuery for ajax -->
+  <script src="./js/imports/jquery-3.7.1.min.js"></script>
 
   <link rel="icon" type="image/x-icon" href="/assets/universal/logo.png" />
 
@@ -88,7 +91,6 @@ if (isset($_SESSION['UID'])) {
         <p> Login to view & manage your ferry tickets.</p>
         <form id="Login" onsubmit="return validateForm(event, 'login')">
 
-
           <!-- Email Row -->
           <div class="mb-2">
             <label for="email" class="form-label">Email</label>
@@ -129,7 +131,6 @@ if (isset($_SESSION['UID'])) {
         <h1> Register </h1>
         <p> Register to purchase ferry tickets now!</p>
         <form id="Register" onsubmit="return validateForm(event, 'register')">
-
 
           <!-- First Name Row -->
           <div class="mb-2">
@@ -207,6 +208,9 @@ if (isset($_SESSION['UID'])) {
 
   <!-- Import Form validation script. -->
   <script src="./js/util/formValidation.js"></script>
+
+  <!-- Import form handling for ajax  -->
+  <script src="./js/ajax/userFormHandling.js"></script>
 
 </body>
 
