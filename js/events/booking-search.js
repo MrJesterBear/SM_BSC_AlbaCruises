@@ -1,7 +1,7 @@
 // Saul Maylin 21005729
 // Booking Buttons Script
-// 29/10/2025
-// v1
+// 04/11/2025
+// v1.1
 
 // One way / Return buttons
 
@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // if return isnt disabled, set the value of it to the new depart date to avoid errors.
     if (!returnDateInput.hasAttribute("disabled")) {
+      if (returnDateInput.value < departDateValue)
       returnDateInput.value = departDateValue;
     }
   });

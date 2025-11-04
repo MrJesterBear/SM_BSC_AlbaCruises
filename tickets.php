@@ -1,5 +1,5 @@
 <!-- ? Name:  21005729 Saul Maylin
-? Date: 22/10/2025
+? Date: 04/11/2025
 ? v1
 ? Project: Alba Cruises
 ? -->
@@ -39,13 +39,13 @@
 
   <!-- * Secondary nav, Image & Nav -->
 
-<!-- ! Secondary Nav -->
- <div class="nav-colour">
-    <ul class = "list-group list-group-horizontal justify-content-end">
-      <li class ="list-group-item"><a class = "nav-link" href="#">Languages</a></li>
-      <li class ="list-group-item"><a class = "nav-link" href="/staff-login">Staff</a></li>
+  <!-- ! Secondary Nav -->
+  <div class="nav-colour">
+    <ul class="list-group list-group-horizontal justify-content-end">
+      <li class="list-group-item"><a class="nav-link" href="#">Languages</a></li>
+      <li class="list-group-item"><a class="nav-link" href="/staff-login">Staff</a></li>
     </ul>
- </div>
+  </div>
 
   <!-- ! Image -->
   <div class="nav-colour d-flex justify-content-center">
@@ -66,7 +66,42 @@
   <!-- * Main Content -->
 
   <div class="container-fluid text-center">
+    <!-- Booking Box & Departure Select -->
+    <div class="row">
 
+      <div class="col-md booking-form"> <!-- Booking Box -->
+        <script>
+          // Fetch the booking form and insert it here.
+          fetch('/assets/html/booking-form.html') // Fetches the booking form HTML file.
+            .then(response => response.text()) // Converts the response to text.
+            .then(data => { // Inserts the fetched HTML into the booking-form div.
+              var bookingForm = document.getElementsByClassName('booking-form')[0];
+              bookingForm.innerHTML += data;
+            });
+        </script>
+      </div>
+
+      <div class="col-md"> <!-- Departure Select -->
+        <h1 class="text-center">Departures</h1>
+        <?php 
+        include_once('./php/imports/booking/details.php');
+        ?>
+      </div>
+
+    </div>
+    <!-- Return Select (If selected) -->
+    <div class="row">
+      <div class="col-md"> <!-- Blank Space -->
+      </div>
+      <div class="col-md"> <!-- Return Select -->
+        <?php
+        if (isset($_GET['returnDate'])) {
+            echo '<h2 class="text-center">Returns</h2>';
+        }
+        // Placeholder for return select functionality.
+        ?>
+      </div>
+    </div>
   </div>
 
   <!-- Footer -->
@@ -78,7 +113,8 @@
     </script>
   </div>
 
-
+<!-- Import Booking Search javascript -->
+  <script src="./js/events/booking-search.js"></script>
 </body>
 
 </html>
