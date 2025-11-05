@@ -26,5 +26,8 @@ User Type | Email | Password
 - Basic | jerald.davidson@hotmail.co.uk | jerald4life!
 - Staff | rochele.whitty@albacruises.scot | cruisesAreKing#
 
+# Test Dataset
+For bookings, data is set for October 2026 (1st -> 16th) to cover most dates (modnay to friday) based on the sample data timetable.
+
 # Last Update
 11:09 03/11/2025

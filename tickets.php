@@ -67,7 +67,7 @@
 
   <div class="container-fluid text-center">
     <!-- Booking Box & Departure Select -->
-    <div class="row">
+    <div class="row mt-4">
 
       <div class="col-md booking-form"> <!-- Booking Box -->
         <script>
@@ -82,39 +82,43 @@
       </div>
 
       <div class="col-md"> <!-- Departure Select -->
-        <h1 class="text-center">Departures</h1>
-        <?php 
-        include_once('./php/imports/booking/details.php');
-        ?>
-      </div>
+        <h2 class="text-center">Departures</h2>
 
-    </div>
-    <!-- Return Select (If selected) -->
-    <div class="row">
-      <div class="col-md"> <!-- Blank Space -->
+        <div class="row main-background mx-3" id="departure-select-container">
+          <!-- Will be populated by database query based on selected parameters -->
+          <?php
+          include_once('./php/imports/booking/details.php');
+          ?>
+
+        </div>
+
       </div>
-      <div class="col-md"> <!-- Return Select -->
-        <?php
-        if (isset($_GET['returnDate'])) {
+      <!-- Return Select (If selected) -->
+      <div class="row">
+        <div class="col-md"> <!-- Blank Space -->
+        </div>
+        <div class="col-md"> <!-- Return Select -->
+          <?php
+          if (isset($_GET['returnDate'])) {
             echo '<h2 class="text-center">Returns</h2>';
-        }
-        // Placeholder for return select functionality.
-        ?>
+          }
+          // Placeholder for return select functionality.
+          ?>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Footer -->
-  <div class="footer container-fluid text-center bg-secondary border border-border">
-    <script type="module">
-      // imports setfooter function and runs it.
-      import { setFooter } from "./js/html/footer.js";
-      setFooter();
-    </script>
-  </div>
+    <!-- Footer -->
+    <div class="footer container-fluid text-center bg-secondary border border-border">
+      <script type="module">
+        // imports setfooter function and runs it.
+        import { setFooter } from "./js/html/footer.js";
+        setFooter();
+      </script>
+    </div>
 
-<!-- Import Booking Search javascript -->
-  <script src="./js/events/booking-search.js"></script>
+    <!-- Import Booking Search javascript -->
+    <script src="./js/events/booking-search.js"></script>
 </body>
 
 </html>
