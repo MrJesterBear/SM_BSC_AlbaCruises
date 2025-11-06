@@ -44,10 +44,12 @@ CREATE TABLE AlbaDestinations(
 
 CREATE TABLE AlbaFares(
 	fareID INT(3) PRIMARY KEY AUTO_INCREMENT,
+    callingID INT (3) NOT NULL,
     destinationID INT (3) NOT NULL,
     category ENUM("Adult","Teen", "Child", "Infant") NOT NULL,
     fare DECIMAL(4,2) NOT NULL,
-    FOREIGN KEY (destinationID) REFERENCES AlbaDestinations(destinationID)
+    FOREIGN KEY (destinationID) REFERENCES AlbaDestinations(destinationID),
+    FOREIGN KEY (callingID) REFERENCES AlbaDestinations(destinationID)
 );
 
 CREATE TABLE AlbaDestinationTimetable(
@@ -75,63 +77,90 @@ CREATE TABLE AlbaTickets(
     FOREIGN KEY (destinationID) REFERENCES AlbaDestinations(destinationID)
 );
 
+-- Insert Statements
+
 -- Test Data (Covering 1st-16th october)
 INSERT INTO AlbaDestinations (destinationname, destinationDescription)
 VALUES 
-("Mallaig - Eigg", "Route departing from Mallaig and ariving at Eigg"), 
-("Mallaig - Rum", "Route departing from Mallaig and ariving at Rum"),
-("Eigg - Muck", "Route departing from Eigg and ariving at Muck"),
-("Eigg - Rum","Route departing from Eiig and ariving at Rum"), 
-("Muck - Eigg", "Route departing from Muck and ariving at Eigg"),
-("Eigg - Mallaig", "Route departing from Eigg and ariving at Mallaig"),
-("Rum - Mallaig","Route departing from Rum and ariving at Mallaig");
+("Mallaig", "Dummy Data 1"),
+("Eigg", "Dummy Data 2"),
+("Rum", "Dummy Data 3"),
+("Muck", "Dummy Data 4");
 
-INSERT INTO AlbaFares (destinationID, category, fare)
+INSERT INTO AlbaFares (callingID, destinationID, category, fare)
 VALUES 
--- Mallaig - Eigg 
-(1, 'Adult', 18.00), -- Adult
-(1, 'Teen', 10.00), -- Teen
-(1, 'Child', 7.00), -- Child
-(1, 'Infant', 0.00), -- Infant
+-- Mallaig to anywhere but Mallaig
+		-- Eigg
+(1, 2, 'Adult', 18.00), -- Adult
+(1, 2, 'Teen', 10.00), -- Teen
+(1, 2, 'Child', 7.00), -- Child
+(1, 2, 'Infant', 0.00), -- Infant
 
--- Mallaig -> Rum
-(), -- Adult
-(), -- Teen
-(), -- Child
-(), -- Infant
+		-- Rum
+(1, 3, 'Adult', 16.00), -- Adult
+(1, 3, 'Teen', 10.00), -- Teen
+(1, 3, 'Child', 7.00), -- Child
+(1, 3, 'Infant', 0.00), -- Infant
 
--- Eigg -> Muck
-(), -- Adult
-(), -- Teen
-(), -- Child
-(), -- Infant
+		-- Nuck
+(1, 4, 'Adult', 19.00), -- Adult
+(1, 4, 'Teen', 10.00), -- Teen
+(1, 4, 'Child', 7.00), -- Child
+(1, 4, 'Infant', 0.00), -- Infant
 
--- Eigg -> Rum
-(), -- Adult
-(), -- Teen
-(), -- Child
-(), -- Infant
+-- Eigg to anywhere but Eigg
+	-- Mallaig
+(2, 1, 'Adult', 18.00), -- Adult
+(2, 1, 'Teen', 10.00), -- Teen
+(2, 1, 'Child', 7.00), -- Child
+(2, 1, 'Infant', 0.00), -- Infant
 
--- Rum -> Eigg
-(), -- Adult
-(), -- Teen
-(), -- Child
-(), -- Infant
+	-- Rum
+(2, 3, 'Adult', 16.00), -- Adult
+(2, 3, 'Teen', 10.00), -- Teen
+(2, 3, 'Child', 7.00), -- Child
+(2, 3, 'Infant', 0.00), -- Infant
 
--- Muck -> Eigg
-(), -- Adult
-(), -- Teen
-(), -- Child
-(), -- Infant
+	-- Muck
+(2, 4, 'Adult', 10.00), -- Adult
+(2, 4, 'Teen', 10.00), -- Teen
+(2, 4, 'Child', 7.00), -- Child
+(2, 4, 'Infant', 0.00), -- Infant
 
--- Eigg -> Mallaig
-(), -- Adult
-(), -- Teen
-(), -- Child
-(), -- Infant
+-- Rum to anywhere but Rum
+	-- Mallaig
+(3, 1, 'Adult', 24.00), -- Adult
+(3, 1, 'Teen', 10.00), -- Teen
+(3, 1, 'Child', 7.00), -- Child
+(3, 1, 'Infant', 0.00), -- Infant
 
--- Rum -> Mallaig
-(), -- Adult
-(), -- Teen
-(), -- Child
-(); -- Infant 
+	-- Eigg
+(3, 2, 'Adult', 16.00), -- Adult
+(3, 2, 'Teen', 10.00), -- Teen
+(3, 2, 'Child', 7.00), -- Child
+(3, 2, 'Infant', 0.00), -- Infant
+
+	-- Muck
+(3, 4, 'Adult', 10.00), -- Adult
+(3, 4, 'Teen', 10.00), -- Teen
+(3, 4, 'Child', 7.00), -- Child
+(3, 4, 'Infant', 0.00), -- Infant
+
+-- Muck to anywhere but Muck
+	-- Mallaig
+(4, 1, 'Adult', 19.00), -- Adult
+(4, 1, 'Teen', 10.00), -- Teen
+(4, 1, 'Child', 7.00), -- Child
+(4, 1, 'Infant', 0.00), -- Infant
+
+	-- Eigg
+(4, 2, 'Adult', 10.00), -- Adult
+(4, 2, 'Teen', 10.00), -- Teen
+(4, 2, 'Child', 7.00), -- Child
+(4, 2, 'Infant', 0.00), -- Infant
+
+	-- Rum
+(4, 3, 'Adult', 16.00), -- Adult
+(4, 3, 'Teen', 10.00), -- Teen
+(4, 3, 'Child', 7.00), -- Child
+(4, 3, 'Infant', 0.00); -- Infant

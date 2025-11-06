@@ -27,7 +27,7 @@ User Type | Email | Password
 - Staff | rochele.whitty@albacruises.scot | cruisesAreKing#
 
 # Test Dataset
-For bookings, data is set for October 2026 (1st -> 16th) to cover most dates (modnay to friday) based on the sample data timetable.
+For bookings, data is set for August 2026 (10th -> 16th) to cover most dates (modnay to sunday) based on the sample data timetable.
 
 # Last Update
 11:09 03/11/2025

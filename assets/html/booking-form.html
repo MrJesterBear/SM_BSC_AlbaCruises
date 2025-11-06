@@ -24,17 +24,25 @@ Booking Form for Alba Cruises
 
                     <!-- Routes -->
                     <div class="col">
-                        <label for="route">Route</label> <br>
-                        <select id="route" name="route" required>
-                            <option value="Mallaig - Eigg">Mallaig -> Eigg</option>
-                            <option value="Mallaig - Rum">Mallaig -> Rum</option>
-                            <option value="Eigg - Muck">Eigg -> Muck</option>
-                            <option value ="Eigg - Rum">Eigg -> Rum</option>
-                            <option value="Rum - Eigg">Rum -> Eigg</option>
-                            <option value="Muck - Eigg">Muck -> Eigg</option>
-                            <option value="Eigg - Mallaig">Eigg -> Mallaig</option>
-                            <option value="Rum - Mallaig">Rum -> Mallaig</option>
-                        </select>
+                        <div>
+                            <label for="Calling From">Calling From</label> <br>
+                            <select id="Calling From" name="Calling From" required>
+                                <option value="Mallaig">Mallaig</option>
+                                <option value="Eigg">Eigg</option>
+                                <option value="Rum">Rum</option>
+                                <option value="Muck">Muck</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="Destination">Destination</label> <br>
+                            <select id="Destination" name="Destination" required>
+                                <option value="Mallaig">Mallaig</option>
+                                <option value="Eigg">Eigg</option>
+                                <option value="Rum">Rum</option>
+                                <option value="Muck">Muck</option>
+                            </select>
+                        </div>
                     </div>
 
                     <!-- Passengers -->
@@ -51,7 +59,7 @@ Booking Form for Alba Cruises
                         </div>
                         <div>
                             <label for="teen">Child (3-10):</label>
-                            <input type="number" id="Child" name="Child" min="0" value="0" >
+                            <input type="number" id="Child" name="Child" min="0" value="0">
                         </div>
                         <div>
                             <label for="child">Infant (0-2):</label>
