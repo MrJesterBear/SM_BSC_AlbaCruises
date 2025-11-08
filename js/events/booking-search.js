@@ -40,19 +40,20 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Set Minimum date for depart / return date based on the days date. https://stackoverflow.com/a/63154478
-  const today = new Date().toISOString().split("T")[0];
-  departDateInput.setAttribute("min", today);
-  returnDateInput.setAttribute("min", today);
+//   const today = new Date().toISOString().split("T")[0];
+//   departDateInput.setAttribute("min", today);
+//   returnDateInput.setAttribute("min", today);
 
   // Ensure return date minimum is alwaays the same as the depart date
-  departDateInput.addEventListener("change", () => {
-    const departDateValue = departDateInput.value;
-    returnDateInput.setAttribute("min", departDateValue);
+//   departDateInput.addEventListener("change", () => {
+//     const departDateValue = departDateInput.value;
+//     returnDateInput.setAttribute("min", departDateValue);
 
     // if return isnt disabled, set the value of it to the new depart date to avoid errors.
-    if (!returnDateInput.hasAttribute("disabled")) {
-      if (returnDateInput.value < departDateValue)
-      returnDateInput.value = departDateValue;
-    }
-  });
+//     if (!returnDateInput.hasAttribute("disabled")) {
+//       if (returnDateInput.value < departDateValue)
+//       returnDateInput.value = departDateValue;
+//     }
+//   });
+
 });
