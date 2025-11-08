@@ -64,6 +64,19 @@ CREATE TABLE AlbaDestinationTimetable(
     FOREIGN KEY (callingID) REFERENCES AlbaDestinations(destinationID)
 );
 
+SELECT AlbaDestinations.destinationName,
+AlbaDestinationTimetable.departureDate, 
+AlbaDestinationTimetable.departureTime, 
+AlbaDestinationTimetable.arivalTime, 
+AlbaDestinationTimetable.seatOccupancy
+FROM AlbaDestinations
+JOIN AlbaDestinationTimetable
+ON AlbaDestinations.destinationID = AlbaDestinationTimetable.destinationID
+WHERE AlbaDestinationTimetable.destinationID = 2
+AND AlbaDestinationTimetable.departureDate >= 2024-05-13
+AND AlbaDestinationTimetable.departureTime = '11:00:00'
+LIMIT 8;
+
 CREATE TABLE AlbaBookings(
 	bookingID INT(10) PRIMARY KEY AUTO_INCREMENT,
     customerID INT(8) NOT NULL,
@@ -83,7 +96,7 @@ CREATE TABLE AlbaTickets(
 -- Insert Statements
 
 -- Test Data 
-INSERT INTO AlbaDestinations (destinationname, destinationDescription)
+INSERT INTO AlbaDestinations (destinationName, destinationDescription)
 VALUES 
 ("Mallaig", "Mallaig is a port in Morar, on the west coast of the Highlands of Scotland. It faces Skye from across the Sound of Sleat."),
 ("Eigg", "The Isle of Eigg is one of the four Small Isles. Five miles long by three miles wide, Eigg lies 12 miles off Mallaig on Scotland’s west coast, just south of the Isle of Skye."),

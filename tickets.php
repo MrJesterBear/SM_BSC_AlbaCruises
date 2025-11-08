@@ -87,6 +87,7 @@
         <div class="row main-background mx-3" id="departure-select-container">
           <!-- Will be populated by database query based on selected parameters -->
           <?php
+          include('./php/imports/code-error.php');
           include_once('./php/imports/booking/details.php');
           ?>
 
