@@ -53,12 +53,14 @@ if (isset($_GET['Calling']) && isset($_GET['Destination']) && isset($_GET['depar
 
 
     // Logic for creating a statement depending on search criteria.
-    // Some nuance as due to test data, if calling from Mallaig to Eigg, quuery may find other callings to eigg that happen 
+    // Some nuance as due to test data, if calling from Mallaig to Eigg, query may find other callings to eigg that happen 
+
+    // Mallaig = 1, Eigg = 2, Rum = 3, Muck = 4
 
     switch ($callingID) {
         case 1: // Mallaig
             echo '<script>console.log("Calling from Mallaig");</script>';
-            if ($destinationID == 2) { // Eigg - Only show the morning sailings
+            if ($destinationID == 2) { // Eigg - Only show the morning sailings as Mallaig to Eigg will always be the first.
                 echo '<script>console.log("Destination is Eigg");</script>';
 
                 $query =
@@ -83,6 +85,8 @@ if (isset($_GET['Calling']) && isset($_GET['Destination']) && isset($_GET['depar
                     LIMIT 5;";
 
             }
+
+
             break;
         case 2: // Eigg
             $query = "";
