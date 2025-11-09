@@ -1,6 +1,6 @@
 <!-- ? Name:  21005729 Saul Maylin
-? Date: 04/11/2025
-? v1
+? Date: 09/11/2025
+? v1.1
 ? Project: Alba Cruises
 ? -->
 
@@ -108,18 +108,20 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Footer -->
-    <div class="footer container-fluid text-center bg-secondary border border-border">
-      <script type="module">
-        // imports setfooter function and runs it.
-        import { setFooter } from "./js/html/footer.js";
-        setFooter();
-      </script>
-    </div>
 
-    <!-- Import Booking Search javascript -->
-    <script src="./js/events/booking-search.js"></script>
+  <!-- Footer -->
+  <div class="footer container-fluid text-center bg-secondary border border-border">
+    <script type="module">
+      // imports setfooter function and runs it.
+      import { setFooter } from "./js/html/footer.js";
+      setFooter();
+    </script>
+  </div>
+
+  <!-- Import Booking Search javascript -->
+  <script src="./js/events/booking-search.js"></script>
 </body>
 
 </html>

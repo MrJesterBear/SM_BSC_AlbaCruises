@@ -75,7 +75,7 @@ ON AlbaDestinations.destinationID = AlbaDestinationTimetable.destinationID
 WHERE AlbaDestinationTimetable.destinationID = 2
 AND AlbaDestinationTimetable.departureDate >= 2024-05-13
 AND AlbaDestinationTimetable.departureTime = '11:00:00'
-LIMIT 8;
+LIMIT 4;
 
 CREATE TABLE AlbaBookings(
 	bookingID INT(10) PRIMARY KEY AUTO_INCREMENT,
