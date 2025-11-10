@@ -9,6 +9,12 @@
 if (isset($_GET['Calling']) && isset($_GET['Destination']) && isset($_GET['departDate'])) {
     require("./php/pages/sailings.php");
 
+    // Ensure the calling and destination are not the same.
+    if ($_GET['Calling'] == $_GET['Destination']) {
+        echo '<h2 class = "text-danger font-weight-bold"> Calling and Destination ports cannot be the same. Please select different ports. </h2>';
+        exit();
+    }
+
     // Gather the details.
     $calling = $_GET['Calling'];
     $destination = $_GET['Destination'];
@@ -51,80 +57,32 @@ if (isset($_GET['Calling']) && isset($_GET['Destination']) && isset($_GET['depar
     }
     $idQuery2->close();
 
+    // Create FerryQuery object to get sailings.
+    require("./php/classes/ferryquery.php");
+    require("./php/classes/ferries.php");
+    $ferryQuery = new FerryQuery($callingID, $destinationID, $departDate);
+    $callingRoutes = $ferryQuery->getPortOfCall($DB);
+    $destinationRoutes = $ferryQuery->getDestination($DB);
 
-    // Logic for creating a statement depending on search criteria.
-    // Some nuance as due to test data, if calling from Mallaig to Eigg, query may find other callings to eigg that happen 
+    // Render the sailings, as long as the dates of both the calling and destination match.
+    $i = 0;
+    $sailings = array();
+    foreach ($callingRoutes as $callingferries) {
+        foreach ($destinationRoutes as $destinationferries) {
+            if ($callingferries->getDepartureDate() == $destinationferries->getDepartureDate()) {
 
-    // Mallaig = 1, Eigg = 2, Rum = 3, Muck = 4
-
-    switch ($callingID) {
-        case 1: // Mallaig
-            echo '<script>console.log("Calling from Mallaig");</script>';
-            if ($destinationID == 2) { // Eigg - Only show the morning sailings as Mallaig to Eigg will always be the first.
-                echo '<script>console.log("Destination is Eigg");</script>';
-
-                $query =
-                    "SELECT 
-                            AlbaDestinations.destinationName,
-                            AlbaDestinationTimetable.departureDate, 
-                            AlbaDestinationTimetable.departureTime, 
-                            AlbaDestinationTimetable.arivalTime, 
-                            AlbaDestinationTimetable.seatOccupancy
-                    FROM 
-                            AlbaDestinations
-                    JOIN 
-                            AlbaDestinationTimetable
-                    ON 
-                            AlbaDestinations.destinationID = AlbaDestinationTimetable.destinationID
-                    WHERE 
-                            AlbaDestinationTimetable.destinationID = ?
-                    AND 
-                            AlbaDestinationTimetable.departureDate >= ?
-                    AND 
-                            AlbaDestinationTimetable.departureTime = '11:00:00'
-                    LIMIT 5;";
-
+                if ($i != 4) {
+                    $sailings[] = new Sailings($calling, $destinationferries->getDestinationName(), date_create($callingferries->getDepartureDate()), $callingferries->getDepartureTime(), $destinationferries->getArivalTime(), $i, "Departure");
+                    $i++;
+                }
             }
-
-
-            break;
-        case 2: // Eigg
-            $query = "";
-            break;
-        case 3: // Rum
-            $query = "";
-            break;
-        case 4: // Muck
-            $query = "";
-        default:
-            $query = null;
-            break;
-    }
-
-    // Get available sailings based on search criteria.
-    $sailing = $DB->prepare($query);
-    $sailing->bind_param("is", $destinationID, $departDate);
-    $sailing->bind_result($destinationName, $departureDate, $departureTime, $arivalTime, $seatOccupancy);
-    $sailing->execute();
-    $sailing->store_result();
-
-    if ($sailing->num_rows() > 0) {
-        if ($sailing->fetch()) {
-            // call the sailings.php class to render the sailings in a loop
-            $i = 0;
-
-            while ($sailing->fetch()) {
-                new Sailings($calling, $destinationName, date_create($departureDate), $departureTime, $arivalTime, 'option' . $i, 'Departure');
-                $i++;
-            }
-        } else {
-            echo '<h2 class = "text-danger font-weight-bold"> The application was unable to process your request at this time. Please try again later. </h2>';
         }
-    } else {
-        // No sailings found.
-        echo '<h2 class = "text-danger font-weight-bold"> No sailings found matching your search criteria. Please try again with different details. </h2>';
     }
 
+    // If no sailings found, inform user.
+    if (count($sailings) == 0) {
+        echo '<h2 class = "text-danger font-weight-bold"> No sailings available for the selected route and date. Please try different options. </h2>';
+    }
 
 
 } else {

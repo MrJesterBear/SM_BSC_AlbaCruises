@@ -64,19 +64,6 @@ CREATE TABLE AlbaDestinationTimetable(
     FOREIGN KEY (callingID) REFERENCES AlbaDestinations(destinationID)
 );
 
-SELECT AlbaDestinations.destinationName,
-AlbaDestinationTimetable.departureDate, 
-AlbaDestinationTimetable.departureTime, 
-AlbaDestinationTimetable.arivalTime, 
-AlbaDestinationTimetable.seatOccupancy
-FROM AlbaDestinations
-JOIN AlbaDestinationTimetable
-ON AlbaDestinations.destinationID = AlbaDestinationTimetable.destinationID
-WHERE AlbaDestinationTimetable.destinationID = 2
-AND AlbaDestinationTimetable.departureDate >= 2024-05-13
-AND AlbaDestinationTimetable.departureTime = '11:00:00'
-LIMIT 4;
-
 CREATE TABLE AlbaBookings(
 	bookingID INT(10) PRIMARY KEY AUTO_INCREMENT,
     customerID INT(8) NOT NULL,
@@ -860,3 +847,29 @@ VALUES -- Mallaig = 1, Eigg = 2, Rum = 3, Muck = 4 - 27 total sailings.
 (2, 3, '2024-08-31', '12:30:00', '13:30:00', 30),
 (3, 2, '2024-08-31', '15:30:00', '16:00:00', 30),
 (2, 1, '2024-08-31', '16:30:00', '17:30:00', 30);
+
+-- SELECT AlbaDestinations.destinationName,
+-- AlbaDestinationTimetable.departureDate, 
+-- AlbaDestinationTimetable.departureTime, 
+-- AlbaDestinationTimetable.arivalTime, 
+-- AlbaDestinationTimetable.seatOccupancy
+-- FROM AlbaDestinationTimetable
+-- JOIN AlbaDestinations
+-- ON AlbaDestinationTimetable.destinationID = AlbaDestinations.destinationID
+-- WHERE AlbaDestinations.destinationName = "Mallaig"
+-- AND AlbaDestinationTimetable.departureDate >= 2024-05-13
+-- -- AND AlbaDestinationTimetable.departureTime = '11:00:00'
+-- LIMIT 4;
+
+-- SELECT AlbaDestinations.destinationName,
+-- AlbaDestinationTimetable.departureDate, 
+-- AlbaDestinationTimetable.departureTime, 
+-- AlbaDestinationTimetable.arivalTime, 
+-- AlbaDestinationTimetable.seatOccupancy
+-- FROM AlbaDestinationTimetable
+-- JOIN AlbaDestinations
+-- ON AlbaDestinationTimetable.destinationID = AlbaDestinations.destinationID
+-- WHERE AlbaDestinationTimetable.destinationID = 2
+-- AND AlbaDestinationTimetable.departureDate >= 2024-05-13
+-- AND AlbaDestinationTimetable.arivalTime > '11:00:00' 
+-- LIMIT 8;
