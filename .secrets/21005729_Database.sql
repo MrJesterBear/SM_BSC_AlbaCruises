@@ -73,11 +73,13 @@ CREATE TABLE AlbaBookings(
 CREATE TABLE AlbaTickets(
 	ticketID INT(10) PRIMARY KEY AUTO_INCREMENT,
     bookingID INT(10) NOT NULL,
+    callingID INT (3) NOT NULl,
     destinationID INT(3) NOT NULL,
     bookingDate DATE NOT NULL,
-    feeApplicable BOOLEAN NOT NULL,
+    feeApplicable BOOLEAN NOT NULL DEFAULT false,
     FOREIGN KEY (bookingID) REFERENCES AlbaBookings(bookingID),
-    FOREIGN KEY (destinationID) REFERENCES AlbaDestinations(destinationID)
+    FOREIGN KEY (destinationID) REFERENCES AlbaDestinations(destinationID),
+	FOREIGN KEY (callingID) REFERENCES AlbaDestinations(destinationID)
 );
 
 -- Insert Statements

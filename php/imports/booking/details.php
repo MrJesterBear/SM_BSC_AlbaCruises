@@ -65,19 +65,24 @@ if (isset($_GET['Calling']) && isset($_GET['Destination']) && isset($_GET['depar
     $destinationRoutes = $ferryQuery->getDestination($DB);
 
     // Render the sailings, as long as the dates of both the calling and destination match.
-    $i = 0;
+    // only run if there are sailings available
     $sailings = array();
-    foreach ($callingRoutes as $callingferries) {
-        foreach ($destinationRoutes as $destinationferries) {
-            if ($callingferries->getDepartureDate() == $destinationferries->getDepartureDate()) {
 
-                if ($i != 4) {
-                    $sailings[] = new Sailings($calling, $destinationferries->getDestinationName(), date_create($callingferries->getDepartureDate()), $callingferries->getDepartureTime(), $destinationferries->getArivalTime(), $i, "Departure");
-                    $i++;
+
+    // if ($callingRoutes === false || $destinationRoutes === false) {
+        $i = 0;
+        foreach ($callingRoutes as $callingferries) {
+            foreach ($destinationRoutes as $destinationferries) {
+                if ($callingferries->getDepartureDate() == $destinationferries->getDepartureDate()) {
+
+                    if ($i != 4) {
+                        $sailings[] = new Sailings($calling, $destinationferries->getDestinationName(), date_create($callingferries->getDepartureDate()), $callingferries->getDepartureTime(), $destinationferries->getArivalTime(), $i, "Departure");
+                        $i++;
+                    }
                 }
             }
         }
-    }
+    // }
 
     // If no sailings found, inform user.
     if (count($sailings) == 0) {

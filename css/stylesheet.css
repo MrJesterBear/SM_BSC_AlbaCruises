@@ -1,6 +1,6 @@
 /* Saul Maylin 21005729
-Date: 22/10/2025
-v1
+Date: 11/11/2025
+v1.1
 Colour CSS
  */
 
@@ -41,7 +41,6 @@ Colour CSS
 
 .primary-button:disabled {
   background-color: #ffc9f2;
-  cursor: not-allowed;
 }
 
 .secondary-button:disabled {
@@ -55,6 +54,13 @@ Colour CSS
 
 /* Dynamic remove for mobile */
 @media (max-width: 768px) {
+  .destroy-on-mobile {
+    display: none;
+  }
+}
+
+/* Dynamic remove for mobile */
+@media (max-width: 888px) {
   .destroy-on-mobile {
     display: none;
   }

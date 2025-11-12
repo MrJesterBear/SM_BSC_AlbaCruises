@@ -1,7 +1,7 @@
 <?php 
-// Sual Maylin 21005729
-//  09/11/2025
-// v1
+// Saul Maylin 21005729
+//  11/11/2025
+// v1.1
 // Sailings class page.
 
 class Sailings {
@@ -25,12 +25,18 @@ class Sailings {
     }
 
     public function renderSailing() {
-        echo '<div class="col" id="' . $this->option . '">',
+      $mobileview = null;
+
+      if ($this->option == 3) {
+        $mobileview = "destroy-on-mobile";
+      }
+
+        echo '<div class="col ' . $mobileview . '" id="departing' . $this->option . '">',
             '<p class="text-white font-weight-bold">'. date_format($this->departureDate, 'l d/m') . '</p>',
             '<div>',
-              '<p>'.$this->callingName.'<br> '.$this->departureTime.'</p>',
+              '<p>'.$this->callingName.'<p> '.$this->departureTime.'</p> </p>',
               '<p>&#8595;</p>',
-              '<p>'.$this->destinationName.' <br> '.$this->arivalTime.'</p>',
+              '<p>'.$this->destinationName.' <p> '.$this->arivalTime.'</p> </p>',
             '</div>',
             '<button class="btn primary-button" onclick="select'.$this->type.'(' . $this->option . ')">Select </button>',
           '</div>';

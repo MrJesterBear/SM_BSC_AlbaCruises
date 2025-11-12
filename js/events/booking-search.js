@@ -56,4 +56,27 @@ document.addEventListener("DOMContentLoaded", () => {
 //     }
 //   });
 
+if (document.URL.includes("tickets.php")) {
+  // Update the values based on the URL parameters
+  const urlParams = new URLSearchParams(window.location.search);
+
+  const calling = urlParams.get("Calling");
+  const destination = urlParams.get("Destination");
+  const adults = urlParams.get("Adult");
+  const teens = urlParams.get("Teen");
+  const infants = urlParams.get("Infant");
+  const children = urlParams.get("Child");
+  const departDate = urlParams.get("departDate");
+  const returnDate = urlParams.get("returnDate");
+
+  // set the parameters to the input values
+  document.getElementById("Calling").value = calling;
+  document.getElementById("Destination").value = destination;
+  document.getElementById("adult").value = adults;
+  document.getElementById("Teen").value = teens;
+  document.getElementById("Infant").value = infants;
+  document.getElementById("Child").value = children;
+  departDateInput.value = departDate;
+  returnDateInput.value = returnDate;
+}
 });

@@ -51,18 +51,22 @@ class FerryQuery
 
             $ferryList = array();
             while ($stmt->fetch()) {
-                $ferryList[] = new Ferries(null, $destinationName,$departureDate, $departureTime, $arivalTime, $seatOccupancy);
+                $ferryList[] = new Ferries(null, $destinationName, $departureDate, $departureTime, $arivalTime, $seatOccupancy);
             }
             $stmt->close();
-            // allocate the departure time variable.
-            $this->departureTime = $ferryList[0]->getDepartureTime();
 
             // Return the list of ferries.
-            return $ferryList;
+            if (empty($ferryList)) {
+                return false;
+            } else {
+                // allocate the departure time variable.
+                $this->departureTime = $ferryList[0]->getDepartureTime();
+                return $ferryList;
+            }
         }
     }
 
-// Get sailings to destination port.
+    // Get sailings to destination port.
     public function getDestination($DB)
     {
         // clear variables for binding the result.
@@ -96,10 +100,15 @@ class FerryQuery
 
             $ferryList = array();
             while ($stmt->fetch()) {
-                $ferryList[] = new Ferries(null, $destinationName, $departureDate,$departureTime, $arivalTime, $seatOccupancy);
+                $ferryList[] = new Ferries(null, $destinationName, $departureDate, $departureTime, $arivalTime, $seatOccupancy);
             }
             $stmt->close();
-            return $ferryList;
+            // Return the list of ferries.
+            if (empty($ferryList)) {
+                return false;
+            } else {
+                return $ferryList;
+            }
         }
     }
 }

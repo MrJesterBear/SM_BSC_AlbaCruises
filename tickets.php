@@ -1,6 +1,6 @@
 <!-- ? Name:  21005729 Saul Maylin
-? Date: 09/11/2025
-? v1.1
+? Date: 11/11/2025
+? v1.2
 ? Project: Alba Cruises
 ? -->
 
@@ -105,6 +105,15 @@
           }
           // Placeholder for return select functionality.
           ?>
+        </div>
+      </div>
+
+      <!-- Payment Area -->
+      <div class="row">
+        <div class="col-md"> <!-- Blank Space -->
+        </div>
+        <div class="col-md"> <!-- Payment Select -->
+          <p class ="text-center font-weight-bold"> </p>
         </div>
       </div>
     </div>
