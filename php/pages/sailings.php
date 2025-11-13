@@ -38,7 +38,7 @@ class Sailings {
               '<p>&#8595;</p>',
               '<p>'.$this->destinationName.' <p> '.$this->arivalTime.'</p> </p>',
             '</div>',
-            '<button class="btn primary-button" onclick="select'.$this->type.'(' . $this->option . ')">Select </button>',
+            '<button id="'.$this->type.'button'.$this->option.'" class="btn primary-button" onclick="select'.$this->type.'(' . $this->option . ')">Select </button>',
           '</div>';
     }
 }

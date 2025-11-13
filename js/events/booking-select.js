@@ -5,7 +5,8 @@
 //   Booking select events script
 
 document.addEventListener("DOMContentLoaded", () => {
-    function  selectDeparture(option) {
-        
-    }
-    });
+  function selectDeparture(option) {
+    
+  }
+
+});
