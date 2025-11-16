@@ -77,6 +77,7 @@ CREATE TABLE AlbaTickets(
     destinationID INT(3) NOT NULL,
     bookingDate DATE NOT NULL,
     feeApplicable BOOLEAN NOT NULL DEFAULT false,
+    occupants INT (3) NOT NULL,
     FOREIGN KEY (bookingID) REFERENCES AlbaBookings(bookingID),
     FOREIGN KEY (destinationID) REFERENCES AlbaDestinations(destinationID),
 	FOREIGN KEY (callingID) REFERENCES AlbaDestinations(destinationID)
