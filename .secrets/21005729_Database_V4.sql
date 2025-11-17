@@ -237,3 +237,8 @@ Values
 INSERT INTO AlbaStaff (firstName, lastName, email, password)
 Values 
 ("Rochele", "Whitty", "rochele.whitty@albacruises.scot", "$2y$10$VOKClqOX.klHAtzEXegR9OD8IWXnmeHovI6Dharux2vouc99s9qMa");
+
+SELECT * FROM AlbaTimetable;
+
+SELECT * FROM AlbaBookings;
+SELECT * FROM AlbaTickets;
