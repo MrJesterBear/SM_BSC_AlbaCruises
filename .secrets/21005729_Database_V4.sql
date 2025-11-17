@@ -1,21 +1,20 @@
 -- Saul Maylin
 -- Alba Cruises
--- V3
--- 15/11/2025
+-- V4
+-- 17/11/2025
  
--- CREATE DATABASE 21005729_AlbaCruises;
+CREATE DATABASE IF NOT EXISTS 21005729_AlbaCruises;
 
 USE 21005729_AlbaCruises;
 
-DROP TABLE IF EXISTS AlbaTimetable;
 DROP TABLE IF EXISTS AlbaFares;
 DROP TABLE IF EXISTS AlbaTickets;
 DROP TABLE IF EXISTS AlbaBookings;
 DROP TABLE IF EXISTS AlbaCustomers;
 DROP TABLE IF EXISTS AlbaStaff;
+DROP TABLE IF EXISTS AlbaTimetable;
 DROP TABLE IF EXISTS AlbaRoutes;
 DROP TABLE IF EXISTS AlbaDestinations;
-
 
 -- Create Statements 
 CREATE TABLE AlbaCustomers (
@@ -84,14 +83,14 @@ CREATE TABLE AlbaBookings(
 CREATE TABLE AlbaTickets(
 	ticketID INT(10) PRIMARY KEY AUTO_INCREMENT,
     bookingID INT(10) NOT NULL,
-    destinationID INT(3) NOT NULL,
     routeID INT(3) NOT NULL,
+    timetableID INT (3) NOT NULL,
     bookingDate DATE NOT NULL,
     occupants INT (3) NOT NULL,
 	feeApplicable BOOLEAN NOT NULL DEFAULT false,
     FOREIGN KEY (bookingID) REFERENCES AlbaBookings(bookingID),
-    FOREIGN KEY (destinationID) REFERENCES AlbaDestinations(destinationID),
-	FOREIGN KEY (routeID) REFERENCES AlbaRoutes(routeID)
+	FOREIGN KEY (routeID) REFERENCES AlbaRoutes(routeID),
+    FOREIGN KEY (timetableID) REFERENCES AlbaTimetable(timetableID)
 );
 
 -- Insert Statements
@@ -238,15 +237,3 @@ Values
 INSERT INTO AlbaStaff (firstName, lastName, email, password)
 Values 
 ("Rochele", "Whitty", "rochele.whitty@albacruises.scot", "$2y$10$VOKClqOX.klHAtzEXegR9OD8IWXnmeHovI6Dharux2vouc99s9qMa");
-
-
--- php queries
--- Find if there is a departing ferry from the needed place. 
-
-SELECT timetableID
-FROM AlbaTimetable
-WHERE routeID = (SELECT routeID FROM AlbaRoutes WHERE callingID = 1 AND destinationID = 4)
-AND '2024-05-13' between timetableStart and timetableEnd
-AND FIND_IN_SET("Monday", AlbaTimetable.dayOfTravel) > 0 ;
-
-SELECT routeID FROM AlbaRoutes WHERE callingID = 1 AND destinationID = 2;

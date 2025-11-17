@@ -1,21 +1,23 @@
 <?php
 // Sual Maylin 21005729
-//  10/11/2025
-// v1
+//  17/11/2025
+// v1.1
 // Ferry class
 
 class Ferries
 {
-    private $sailingID;
+    private $timetableID;
+    private $callingName;
     private $destinationName;
     private $departureDate;
     private $departureTime;
     private $arivalTime;
     private $occupancy;
 
-    public function __construct($sailingID, $destinationName, $departureDate, $departureTime, $arivalTime, $occupancy)
+    public function __construct($timetableID, $callingName, $destinationName, $departureDate, $departureTime, $arivalTime, $occupancy)
     {
-        $this->sailingID = $sailingID;
+        $this->timetableID = $timetableID;
+        $this->callingName = $callingName;
         $this->destinationName = $destinationName;
         $this->departureDate = $departureDate;
         $this->departureTime = $departureTime;
@@ -23,10 +25,16 @@ class Ferries
         $this->occupancy = $occupancy;
     }
 
-    public function getSailingID()
+    public function getTimetableID()
     {
-        return $this->sailingID;
+        return $this->timetableID;
     }
+
+    public function getCallingName()
+    {
+        return $this->callingName;
+    }
+
     public function getDestinationName()
     {
         return $this->destinationName;
@@ -50,9 +58,14 @@ class Ferries
         return $this->occupancy;
     }
 
-    public function setSailingID($sailingID)
+    public function setTimetableID($timetableID)
     {
-        $this->sailingID = $sailingID;
+        $this->timetableID = $timetableID;
+    }
+
+    public function setCallingName($callingName)
+    {
+        $this->callingName = $callingName;
     }
 
     public function setDestinationName($destinationName)

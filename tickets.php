@@ -1,6 +1,13 @@
+<?php 
+    require("./php/classes/ferryquery.php");
+    require("./php/classes/ferries.php");
+    require("./php/pages/sailings.php");
+    require("./php/imports/connection.php");
+?>
+
 <!-- ? Name:  21005729 Saul Maylin
-? Date: 11/11/2025
-? v1.2
+? Date: 17/11/2025
+? v1.3
 ? Project: Alba Cruises
 ? -->
 
@@ -88,9 +95,8 @@
           <!-- Will be populated by database query based on selected parameters -->
           <?php
           include('./php/imports/code-error.php');
-          include_once('./php/imports/booking/details.php');
+          include('./php/imports/booking/details.php');
           ?>
-
         </div>
 
       </div>
@@ -102,8 +108,10 @@
           <?php
           if (isset($_GET['returnDate'])) {
             echo '<h2 class="text-center">Returns</h2>';
+            echo '<div class="row main-background mx-3" id="return-select-container">';
+            include('./php/imports/booking/details.php');
+            echo '</div>';
           }
-          // Placeholder for return select functionality.
           ?>
         </div>
       </div>

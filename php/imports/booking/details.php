@@ -1,13 +1,13 @@
 <?php
 //   Saul Maylin 21005729
-//   09/11/2025
-//   v1.1
+//   17/11/2025
+//   v1.2
 //   Project: Alba Cruises
 //   Booking details import file.
 
 // Ensure main details have at least been set.
 if (isset($_GET['Calling']) && isset($_GET['Destination']) && isset($_GET['departDate'])) {
-    require("./php/pages/sailings.php");
+
 
     // Ensure the calling and destination are not the same.
     if ($_GET['Calling'] == $_GET['Destination']) {
@@ -16,22 +16,26 @@ if (isset($_GET['Calling']) && isset($_GET['Destination']) && isset($_GET['depar
     }
 
     // Gather the details.
-    $calling = $_GET['Calling'];
-    $destination = $_GET['Destination'];
-    $departDate = $_GET['departDate'];
+    if (isset($_SESSION["return"])) { // Swap calling and destination for return trip.
+        $calling = $_GET['Destination'];
+        $destination = $_GET['Calling'];
+        $departDate = $_GET['returnDate'];
+    } else { // for just one way.
+        $calling = $_GET['Calling'];
+        $destination = $_GET['Destination'];
+        $departDate = $_GET['departDate'];
+    }
     $noOfAdults = $_GET['Adult'];
     $noOfTeens = $_GET['Teen'];
     $noOfChildren = $_GET['Child'];
     $noOfInfants = $_GET['Infant'];
 
     // Connect to the database, path from executing file (tickets.php).
-    require("./php/imports/connection.php");
 
     // get the ids of the calling and destination.
     $callingID = null;
     $destinationID = null;
     $id = null;
-
 
     // Calling ID
     $idQuery = $DB->prepare("SELECT destinationID FROM AlbaDestinations WHERE destinationName = ?;");
@@ -58,35 +62,41 @@ if (isset($_GET['Calling']) && isset($_GET['Destination']) && isset($_GET['depar
     $idQuery2->close();
 
     // Create FerryQuery object to get sailings.
-    require("./php/classes/ferryquery.php");
-    require("./php/classes/ferries.php");
     $ferryQuery = new FerryQuery($callingID, $destinationID, $departDate);
-    $callingRoutes = $ferryQuery->getPortOfCall($DB);
-    $destinationRoutes = $ferryQuery->getDestination($DB);
+    $route = $ferryQuery->routeExists($DB);
 
-    // Render the sailings, as long as the dates of both the calling and destination match.
-    // only run if there are sailings available
+    // if empty, exit script.
+    if (empty($route) || $route == false) {
+        echo '<h2 class = "text-danger font-weight-bold"> No route exists for the selected ports. Please try different options. </h2>';
+        exit();
+    }
+
+    // if route exists, get the sailing details.
+    $timetable = $ferryQuery->getTimetable($DB, $route);
     $sailings = array();
 
-
-    // if ($callingRoutes === false || $destinationRoutes === false) {
-        $i = 0;
-        foreach ($callingRoutes as $callingferries) {
-            foreach ($destinationRoutes as $destinationferries) {
-                if ($callingferries->getDepartureDate() == $destinationferries->getDepartureDate()) {
-
-                    if ($i != 4) {
-                        $sailings[] = new Sailings($calling, $destinationferries->getDestinationName(), date_create($callingferries->getDepartureDate()), $callingferries->getDepartureTime(), $destinationferries->getArivalTime(), $i, "Departure");
-                        $i++;
-                    }
-                }
-            }
+    // render sailings.
+    if (!empty($timetable) || $timetable != false) {
+        foreach ($timetable as $ferry) {
+            $sailings[] = new Sailings($ferry->getCallingName(), $ferry->getDestinationName(), date_create($ferry->getDepartureDate()), $ferry->getDepartureTime(), $ferry->getArivalTime(), $ferry->getTimetableID(), "Departure");
+            $sailings[count($sailings) - 1]->renderSailing(); // render sailing as it's created.
         }
-    // }
+    }
 
     // If no sailings found, inform user.
     if (count($sailings) == 0) {
         echo '<h2 class = "text-danger font-weight-bold"> No sailings available for the selected route and date. Please try different options. </h2>';
+    } else {
+        // Setup for return sailings if return date set.
+        if (isset($_GET['returnDate'])) {
+            if (!isset($_SESSION['return'])) {
+                $_SESSION['return'] = true;
+                echo '<script>console.log("Return session set.");</script>';
+            } else {
+                unset($_SESSION['return']);
+                '<script>console.log("Return session unset.");</script>';
+            }
+        }
     }
 
 

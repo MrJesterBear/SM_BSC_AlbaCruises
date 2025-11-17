@@ -1,7 +1,7 @@
 // Saul Maylin 21005729
 // Booking Buttons Script
-// 04/11/2025
-// v1.1
+// 17/11/2025
+// v1.2
 
 // One way / Return buttons
 
@@ -77,6 +77,19 @@ if (document.URL.includes("tickets.php")) {
   document.getElementById("Infant").value = infants;
   document.getElementById("Child").value = children;
   departDateInput.value = departDate;
+
+  if (returnDate != null) {
+    // Enable return date input and disable return button and enable one way button
+    if (returnDateInput.hasAttribute("disabled")) {
+      returnDateInput.removeAttribute("disabled");
+    }
+    if (!returnBtn.hasAttribute("disabled")) {
+      returnBtn.setAttribute("disabled", "");
+    }
+    if (oneWayBtn.hasAttribute("disabled")) {
+      oneWayBtn.removeAttribute("disabled");
+    }
+  }
   returnDateInput.value = returnDate;
 }
 });

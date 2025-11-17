@@ -52,6 +52,10 @@ Colour CSS
   background-color: #72aad9;
 }
 
+.secondary-background {
+  background-color: #D9D9D9;
+}
+
 /* Dynamic remove for mobile */
 @media (max-width: 768px) {
   .destroy-on-mobile {

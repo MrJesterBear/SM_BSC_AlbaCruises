@@ -1,6 +1,6 @@
 <?php 
 // Saul Maylin 21005729
-//  11/11/2025
+//  17/11/2025
 // v1.1
 // Sailings class page.
 
@@ -21,7 +21,7 @@ class Sailings {
         $this->arivalTime = $arivalTime;
         $this->option = $option;
         $this->type = $type;
-        $this->renderSailing();
+        // $this->renderSailing();
     }
 
     public function renderSailing() {
@@ -33,7 +33,7 @@ class Sailings {
 
         echo '<div class="col ' . $mobileview . '" id="departing' . $this->option . '">',
             '<p class="text-white font-weight-bold">'. date_format($this->departureDate, 'l d/m') . '</p>',
-            '<div>',
+            '<div class = "secondary-background">',
               '<p>'.$this->callingName.'<p> '.$this->departureTime.'</p> </p>',
               '<p>&#8595;</p>',
               '<p>'.$this->destinationName.' <p> '.$this->arivalTime.'</p> </p>',
