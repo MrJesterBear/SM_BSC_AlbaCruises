@@ -1,12 +1,227 @@
 //   Saul Maylin 21005729
-//   11/11/2025
+//   17/11/2025
 //   v1
 //   Project: Alba Cruises
 //   Booking select events script
 
-document.addEventListener("DOMContentLoaded", () => {
-  function selectDeparture(option) {
-    
+// Classes for booking.
+let departure = new booking("null", "null", "null", "null", "null", 0, 0, 0, 0);
+let returning = new booking("null", "null", "null", "null", "null", 0, 0, 0, 0);
+
+// Option ints
+let lastSelectedDeparture = null;
+let lastSelectedReturn = null;
+
+// Bools
+let departureSelected = null;
+let returnSelected = null;
+
+// get number of occupants from booking form.
+let urlParams = new URLSearchParams(window.location.search);
+
+let noOfAdults = parseInt(urlParams.get("Adult"));
+let noOfTeens = parseInt(urlParams.get("Teen"));
+let noOfChildren = parseInt(urlParams.get("Child"));
+let noOfInfants = parseInt(urlParams.get("Infant"));
+
+// close object
+urlParams = null;
+
+function selectDeparture(event, option) {
+  event.preventDefault();
+  console.log("Departure option selected: " + option);
+
+  // disable the selected button to prevent multiple selections
+  if (lastSelectedDeparture === null) {
+    lastSelectedDeparture = option;
+    // disable selected button.
+    document
+      .getElementById("Departurebutton" + option)
+      .setAttribute("disabled", "");
+  } else {
+    // enable last selected button.
+    document
+      .getElementById("Departurebutton" + lastSelectedDeparture)
+      .removeAttribute("disabled");
+
+    // disable new selected button.
+    document
+      .getElementById("Departurebutton" + option)
+      .setAttribute("disabled", "");
+
+    // update last selected variable.
+    lastSelectedDeparture = option;
+  }
+  // get the needed details from the selected form.
+
+  let timetableID = document.getElementsByClassName("DepartureTimetableID" + option)[0]
+    .value;
+  let callingName = document.getElementsByClassName("DepartureCallingName" + option)[0]
+    .value;
+  let destinationName = document.getElementsByClassName(
+    "DepartureDestinationName" + option
+  )[0].value;
+  let departDate = document.getElementsByClassName("DepartureDepartDate" + option)[0]
+    .value;
+
+  // set the booking object.
+  departure = new booking(
+    timetableID,
+    callingName,
+    destinationName,
+    departDate,
+    noOfAdults,
+    noOfTeens,
+    noOfChildren,
+    noOfInfants
+  );
+
+  console.log("Checking Selections.");
+  checkSelections();
+}
+
+function selectReturn(event, option) {
+  event.preventDefault();
+  console.log("Return option selected: " + option);
+
+  // disable the selected button to prevent multiple selections
+  if (lastSelectedReturn === null) {
+    lastSelectedReturn = option;
+    // disable selected button.
+    document
+      .getElementById("Returnbutton" + option)
+      .setAttribute("disabled", "");
+  } else {
+    // enable last selected button.
+    document
+      .getElementById("Returnbutton" + lastSelectedReturn)
+      .removeAttribute("disabled");
+
+    // disable new selected button.
+    document
+      .getElementById("Returnbutton" + option)
+      .setAttribute("disabled", "");
+
+    // update last selected variable.
+    lastSelectedReturn = option;
+  }
+  // check to see if both selections have been made.
+  console.log("Checking Selections.");
+
+  // get the needed details from the selected form.
+
+  let timetableID = document.getElementsByClassName("ReturnTimetableID" + option)[0]
+    .value;
+  let callingName = document.getElementsByClassName("ReturnCallingName" + option)[0]
+    .value;
+  let destinationName = document.getElementsByClassName(
+    "ReturnDestinationName" + option
+  )[0].value;
+  let departDate = document.getElementsByClassName("ReturnDepartDate" + option)[0]
+    .value;
+
+  // set the booking object.
+  returning = new booking(
+    timetableID,
+    callingName,
+    destinationName,
+    departDate,
+    noOfAdults,
+    noOfTeens,
+    noOfChildren,
+    noOfInfants
+  );
+
+  checkSelections();
+}
+
+function checkSelections() {
+  // collect the departure forms.
+  const departures = document.getElementsByClassName("Departureform");
+
+  // loop through to see if any have the disabled tag, showing they are selected.
+  for (let i = 0; i < departures.length; i++) {
+    for (let j = 0; j < departures[i].elements.length; j++) {
+      if (departures[i].elements[j].disabled) {
+        departureSelected = true; // Set variable to true if one is found.
+      }
+    }
   }
 
-});
+  if (departureSelected) {
+    console.log("Departure has a selection");
+  }
+
+  // collect the return forms if exists.
+  if (document.getElementsByClassName("Returnform").length != 0) {
+    const returns = document.getElementsByClassName("Returnform");
+
+    // loop through to see if any have the disabled tag, showing they are selected.
+    for (let i = 0; i < returns.length; i++) {
+      for (let j = 0; j < returns[i].elements.length; j++) {
+        if (returns[i].elements[j].disabled) {
+          returnSelected = true;
+        }
+      }
+    }
+
+    if (returnSelected) {
+      console.log("Return has a selection");
+    }
+
+    // if both have been selected, enable the book tickets button.
+    if (departureSelected && returnSelected) {
+      console.log("Both selections made, enabling book tickets button.");
+      document.getElementById("bookTicketsButton").removeAttribute("disabled");
+    } else {
+      document.getElementById("bookTicketsButton").setAttribute("disabled", "");
+    }
+  } else {
+    // no return sailings exist, so enable book tickets button.
+    if (departureSelected) {
+      console.log(
+        "Departure selection made but no return tickets needed, enabling book tickets button."
+      );
+      // also nullify the return booking object.
+      returnBooking = null;
+
+      document.getElementById("bookTicketsButton").removeAttribute("disabled");
+    } else {
+      document.getElementById("bookTicketsButton").setAttribute("disabled", "");
+    }
+  }
+}
+
+function bookTickets() {
+  console.log("Booking Tickets...");
+
+  // call the ajax function to book the departure sailing.
+  if (returnSelected != null) {
+    // do both sailings.
+    console.log("Departure " + departure.toString());
+    console.log("Return " + returning.toString());
+
+    console.log("Booking Departure Sailing...");
+    let departureSuccess = departure.bookSailing();
+
+    // if departure was successful, book return.
+    if (departureSuccess) {
+      console.log("Departure booked successfully, booking return sailing...");
+      let returnSuccess = returning.bookSailing();
+
+      // if both successful, go to book-ticket page. normally this will be where payment is done, but for this it'll just be a confirmation.
+      if (returnSuccess) {
+        console.log("Both sailings booked successfully.");
+        window.location.href = "./book-ticket.php";
+      }
+    }
+  } else {
+    // do just one.
+    console.log("Booking Departure Sailing...");
+    let departureSuccess = departure.bookSailing();
+    if (departureSuccess) {
+      console.log("Departure sailing booked successfully.");
+      window.location.href = "./book-ticket.php";
+    }
+  }
+}

@@ -5,6 +5,7 @@
 // Sailings class page.
 
 class Sailings {
+  private $timetableID;
     private $callingName;
     private $destinationName;
     private $departureDate;
@@ -12,11 +13,14 @@ class Sailings {
     private $arivalTime;
     private $option;
     private $type;
+    private $formattedDate;
 
-    public function __construct($callingName, $destinationName, $departureDate, $departureTime, $arivalTime, $option, $type) {
+    public function __construct($timetableID, $callingName, $destinationName, $departureDate, $departureTime, $arivalTime, $option, $type) {
+        $this->timetableID = $timetableID;
         $this->callingName = $callingName;
         $this->destinationName = $destinationName;
         $this->departureDate = $departureDate;
+        $this->formattedDate = date_create($departureDate);
         $this->departureTime = $departureTime;
         $this->arivalTime = $arivalTime;
         $this->option = $option;
@@ -32,14 +36,20 @@ class Sailings {
       }
 
         echo '<div class="col ' . $mobileview . '" id="departing' . $this->option . '">',
-            '<p class="text-white font-weight-bold">'. date_format($this->departureDate, 'l d/m') . '</p>',
+            '<p class="text-white font-weight-bold">'. date_format($this->formattedDate, 'l d/m') . '</p>',
             '<div class = "secondary-background">',
               '<p>'.$this->callingName.'<p> '.$this->departureTime.'</p> </p>',
               '<p>&#8595;</p>',
               '<p>'.$this->destinationName.' <p> '.$this->arivalTime.'</p> </p>',
             '</div>',
-            '<button id="'.$this->type.'button'.$this->option.'" class="btn primary-button" onclick="select'.$this->type.'(' . $this->option . ')">Select </button>',
-          '</div>';
+              '<form class ="'.$this->type.'form" onsubmit="return select'.$this->type.'(event, ' . $this->option . ')">',
+              '<input type="hidden" class="'.$this->type.'TimetableID'.$this->option.'" name="timetableID" value="'.$this->timetableID.'">',
+              '<input type="hidden" class="'.$this->type.'CallingName'.$this->option.'" name="callingName" value="'.$this->callingName.'">',
+              '<input type="hidden" class="'.$this->type.'DestinationName'.$this->option.'" name="destinationName" value="'.$this->destinationName.'">',
+              '<input type="hidden" class="'.$this->type.'DepartDate'.$this->option.'" name="departureDate" value="'.$this->departureDate.'">',
+              '<button type = "submit" id="'.$this->type.'button'.$this->option.'" class="btn primary-button">Select </button>',
+              '</form>',
+            '</div>';
     }
 }
 ?>

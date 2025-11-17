@@ -27,6 +27,9 @@ if (isset($_GET['error'])) {
         case 'UID': // User ID Error
             $errortext = "The user could not be registered due to a server error. Please try again later.";
             break;
+        case 'NOT_LOGGED_IN': // Not logged in for booking
+            $errortext = "You must be logged in to complete a booking. Please log in or register an account first.";
+            break;
         default:
             break;
     }

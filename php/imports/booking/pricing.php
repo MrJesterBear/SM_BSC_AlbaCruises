@@ -5,10 +5,10 @@
 // Booking pricing import file.
 
 // get number of passengers
-$noOfAdults = $_GET['Adult'];
-$noOfTeens = $_GET['Teen'];
-$noOfChildren = $_GET['Child'];
-$noOfInfants = $_GET['Infant'];
+$noOfAdults = intval($_GET['Adult']);
+$noOfTeens = intval($_GET['Teen']);
+$noOfChildren = intval($_GET['Child']);
+$noOfInfants = intval($_GET['Infant']);
 
 // Get calling and destination ids
 $calling = $_GET['Calling'];
@@ -23,8 +23,7 @@ $destination = $ferry->getDestinationID($DB, $destination);
 if (!empty($calling) && !empty($destination)) {
     echo '<script>console.log("Calling ID: ' . $calling . ' Destination ID: ' . $destination . '");</script>';
 } else {
-    echo '<h2 class = "text-danger font-weight-bold"> Error retrieving prices. IDs. Please try again. </h2>';
-    exit();
+    echo '<h2 class = "text-danger font-weight-bold"> Error retrieving prices. Please try again. </h2>';
 }
 
 // initialize prices

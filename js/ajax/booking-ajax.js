@@ -4,38 +4,30 @@
 // Form handling for user booking via ajax.
 
 class booking {
+  timetableID;
   callingName;
   destinationName;
   departDate;
-  departTime;
-  arivalTime;
   occupants;
 
   constructor(
+    timetableID,
     callingName,
     destinationName,
     departDate,
-    departTime,
-    arivalTime,
     adults,
     teens,
     children,
     infants
   ) {
     // apply variables.
+    this.timetableID = timetableID;
     this.callingName = callingName;
     this.destinationName = destinationName;
     this.departDate = departDate;
-    this.departTime = departTime;
-    this.arivalTime = arivalTime;
 
     // Calculate total occupants.
-    this.occupants =
-      parseInt(adults) +
-      parseInt(teens) +
-      parseInt(children) +
-      parseInt(infants);
-
+    this.occupants = (adults + teens + children + infants);
   }
 
   bookSailing() {
@@ -44,11 +36,10 @@ class booking {
       type: "POST", // Type of request
       data: {
         // Post Variables
+        timetableID: this.timetableID,
         callingName: this.callingName,
         destinationName: this.destinationName,
         departDate: this.departDate,
-        departTime: this.departTime,
-        arivalTime: this.arivalTime,
         occupants: this.occupants,
       },
       success: function (data) {
@@ -56,10 +47,15 @@ class booking {
         console.log("booking response:", data);
         switch (data.error) {
           case "ferry_not_found":
-            windows.location.href = ""
+            console.log("Ferry not found.");
             break;
 
           case "booking_failed":
+            console.log("Booking failed.");
+            break;
+          case "not_logged_in":
+            console.log("User not logged in.");
+            window.location.href = "./new-user.php?error=NOT_LOGGED_IN";
             break;
 
           case "none":
@@ -67,6 +63,26 @@ class booking {
             break;
         }
       },
+      error: function (xhr, status, error) {
+        console.error("Error processing booking:");
+        return false;
+      }
     });
+  }
+
+  toString() {
+    return (
+      "Booking Details: " +
+      this.timetableID +
+      " - " +
+      this.callingName +
+      " to " +
+      this.destinationName +
+      " on " +
+      this.departDate +
+      " for " +
+      this.occupants +
+      " occupants."
+    );
   }
 }

@@ -34,6 +34,11 @@ require("./php/imports/connection.php");
     integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
     crossorigin="anonymous"></script>
 
+  <!-- Import booking select javascript -->
+   <script src="./js/ajax/booking-ajax.js"></script>
+  <script src="./js/events/booking-select.js"></script>
+
+
   <!-- ! Import custom stylesheet -->
   <link rel="stylesheet" href="/css/stylesheet.css" />
 
@@ -129,7 +134,7 @@ require("./php/imports/connection.php");
           ?>
 
           <div class="py-3 text-center">
-            <button type="submit" class="btn primary-button" id="bookTicketsButton" disabled>Book Tickets</button>
+            <button type="submit" class="btn primary-button" id="bookTicketsButton" onclick="bookTickets()" disabled>Book Tickets</button>
           </div>
 
         </div>
@@ -150,6 +155,9 @@ require("./php/imports/connection.php");
 
   <!-- Import Booking Search javascript -->
   <script src="./js/events/booking-search.js"></script>
+
+  <!-- import jquery -->
+   <script src ="./js/imports/jquery-3.7.1.min.js"></script>
 </body>
 
 </html>

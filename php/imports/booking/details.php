@@ -30,7 +30,7 @@ if (isset($_GET['Calling']) && isset($_GET['Destination']) && isset($_GET['depar
     $noOfChildren = $_GET['Child'];
     $noOfInfants = $_GET['Infant'];
 
-    $totalOccupants = $noOfAdults + $noOfTeens + $noOfChildren; // infants do not occupy seats usually.
+    $totalOccupants = intval($noOfAdults) + intval($noOfTeens) + intval($noOfChildren); // infants do not occupy seats usually.
 
     // Connect to the database, path from executing file (tickets.php).
 
@@ -81,12 +81,20 @@ if (isset($_GET['Calling']) && isset($_GET['Destination']) && isset($_GET['depar
 
     // render sailings.
     if (!empty($timetable) || $timetable != false) {
+        // check to see what type of timetable it is (departure/return) for rendering.
+        if (isset($_SESSION["return"])) {
+            $type = "Return";
+        } else {
+            $type = "Departure";
+        }
 
+        $i = 0;
         foreach ($timetable as $ferry) {
-            $sailings[] = new Sailings($ferry->getCallingName(), $ferry->getDestinationName(), date_create($ferry->getDepartureDate()), $ferry->getDepartureTime(), $ferry->getArivalTime(), $ferry->getTimetableID(), "Departure");
+            $sailings[] = new Sailings($ferry->getTimetableID(), $ferry->getCallingName(), $ferry->getDestinationName(), $ferry->getDepartureDate(), $ferry->getDepartureTime(), $ferry->getArivalTime(), $i, $type);
 
             // Check to see if enough seats available for total occupants by querying the database bookings for this route and date.
             $sailings[count($sailings) - 1]->renderSailing(); // render sailing as it's created.
+        $i++;
         }
     }
 

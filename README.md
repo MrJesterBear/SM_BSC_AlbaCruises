@@ -20,6 +20,9 @@ To test this website, go to /.secrets/ to run the setup.sql file. once this has 
 ```
 This is due to the connection to the database being done through the get_cfg_var() method
 
+## Webserver
+For the webserver, the documentroot **must be set to the website folder** otherwise some functionality breaks.
+
 ## Test Credentials
 User Type | Email | Password
 

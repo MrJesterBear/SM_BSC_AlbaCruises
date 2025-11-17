@@ -40,56 +40,86 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Set Minimum date for depart / return date based on the days date. https://stackoverflow.com/a/63154478
-//   const today = new Date().toISOString().split("T")[0];
-//   departDateInput.setAttribute("min", today);
-//   returnDateInput.setAttribute("min", today);
+  //   const today = new Date().toISOString().split("T")[0];
+  //   departDateInput.setAttribute("min", today);
+  //   returnDateInput.setAttribute("min", today);
 
   // Ensure return date minimum is alwaays the same as the depart date
-//   departDateInput.addEventListener("change", () => {
-//     const departDateValue = departDateInput.value;
-//     returnDateInput.setAttribute("min", departDateValue);
+  //   departDateInput.addEventListener("change", () => {
+  //     const departDateValue = departDateInput.value;
+  //     returnDateInput.setAttribute("min", departDateValue);
 
-    // if return isnt disabled, set the value of it to the new depart date to avoid errors.
-//     if (!returnDateInput.hasAttribute("disabled")) {
-//       if (returnDateInput.value < departDateValue)
-//       returnDateInput.value = departDateValue;
-//     }
-//   });
+  // if return isnt disabled, set the value of it to the new depart date to avoid errors.
+  //     if (!returnDateInput.hasAttribute("disabled")) {
+  //       if (returnDateInput.value < departDateValue)
+  //       returnDateInput.value = departDateValue;
+  //     }
+  //   });
 
-if (document.URL.includes("tickets.php")) {
-  // Update the values based on the URL parameters
-  const urlParams = new URLSearchParams(window.location.search);
+  if (document.URL.includes("tickets.php")) {
+    // Update the values based on the URL parameters https://www.sitepoint.com/get-url-parameters-with-javascript/
+    let urlParams = new URLSearchParams(window.location.search);
 
-  const calling = urlParams.get("Calling");
-  const destination = urlParams.get("Destination");
-  const adults = urlParams.get("Adult");
-  const teens = urlParams.get("Teen");
-  const infants = urlParams.get("Infant");
-  const children = urlParams.get("Child");
-  const departDate = urlParams.get("departDate");
-  const returnDate = urlParams.get("returnDate");
+    const calling = urlParams.get("Calling");
 
-  // set the parameters to the input values
-  document.getElementById("Calling").value = calling;
-  document.getElementById("Destination").value = destination;
-  document.getElementById("adult").value = adults;
-  document.getElementById("Teen").value = teens;
-  document.getElementById("Infant").value = infants;
-  document.getElementById("Child").value = children;
-  departDateInput.value = departDate;
+    // set the parameters to the input values if they exist.
 
-  if (returnDate != null) {
-    // Enable return date input and disable return button and enable one way button
-    if (returnDateInput.hasAttribute("disabled")) {
-      returnDateInput.removeAttribute("disabled");
+    if (calling != null) {
+      document.getElementById("Calling").value = calling;
     }
-    if (!returnBtn.hasAttribute("disabled")) {
-      returnBtn.setAttribute("disabled", "");
+
+    const destination = urlParams.get("Destination");
+
+    if (destination != null) {
+      document.getElementById("Destination").value = destination;
     }
-    if (oneWayBtn.hasAttribute("disabled")) {
-      oneWayBtn.removeAttribute("disabled");
+
+    const adults = urlParams.get("Adult");
+
+    if (adults != null) {
+      document.getElementById("adult").value = adults;
     }
+
+    const teens = urlParams.get("Teen");
+
+    if (teens != null) {
+      document.getElementById("Teen").value = teens;
+    }
+
+    const infants = urlParams.get("Infant");
+
+    if (infants != null) {
+      document.getElementById("Infant").value = infants;
+    }
+
+    const children = urlParams.get("Child");
+
+    if (children != null) {
+      document.getElementById("Child").value = children;
+    }
+
+    const departDate = urlParams.get("departDate");
+
+    if (departDate != null) {
+      departDateInput.value = departDate;
+    }
+
+    const returnDate = urlParams.get("returnDate");
+
+    urlParams = null;
+
+    if (returnDate != null) {
+      // Enable return date input and disable return button and enable one way button
+      if (returnDateInput.hasAttribute("disabled")) {
+        returnDateInput.removeAttribute("disabled");
+      }
+      if (!returnBtn.hasAttribute("disabled")) {
+        returnBtn.setAttribute("disabled", "");
+      }
+      if (oneWayBtn.hasAttribute("disabled")) {
+        oneWayBtn.removeAttribute("disabled");
+      }
+    }
+    returnDateInput.value = returnDate;
   }
-  returnDateInput.value = returnDate;
-}
 });

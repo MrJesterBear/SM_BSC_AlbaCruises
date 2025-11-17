@@ -47,6 +47,15 @@ class userFormHandling {
             window.location.href = "./new-user.php?error=UID";
             break;
           case "NONE": // No error, user logged in successfully
+            // get current url paramters.
+            const urlParams = new URLSearchParams(window.location.search);
+            const redirect = urlParams.get("error");
+            if (redirect === "NOT_LOGGED_IN") {
+              // if user was redirected here from a booking attempt, send them to tickets.
+              window.location.href = "./tickets.php";
+              break;
+            }
+
             window.location.href = "./account.php";
             break;
           default: // Unknown error
@@ -88,6 +97,14 @@ class userFormHandling {
             window.location.href = "./new-user.php?error=UID";
             break;
           case "NONE": // No error, user logged in successfully
+            // get current url paramters.
+            const urlParams = new URLSearchParams(window.location.search);
+            const redirect = urlParams.get("error");
+            if (redirect === "NOT_LOGGED_IN") {
+              // if user was redirected here from a booking attempt, send them to tickets.
+              window.location.href = "./tickets.php";
+              break;
+            }
             window.location.href = "./account.php";
             break;
           default: // Unknown error
