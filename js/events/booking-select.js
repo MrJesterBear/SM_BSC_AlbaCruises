@@ -38,6 +38,9 @@ function selectDeparture(event, option) {
     document
       .getElementById("Departurebutton" + option)
       .setAttribute("disabled", "");
+    // Change text of the button.
+    document.getElementById("Departurebutton" + option).textContent =
+      "Selected";
   } else {
     // enable last selected button.
     document
@@ -48,21 +51,30 @@ function selectDeparture(event, option) {
     document
       .getElementById("Departurebutton" + option)
       .setAttribute("disabled", "");
+    // Change text of the button.
+    document.getElementById(
+      "Departurebutton" + lastSelectedDeparture
+    ).textContent = "Select";
+    document.getElementById("Departurebutton" + option).textContent =
+      "Selected";
 
     // update last selected variable.
     lastSelectedDeparture = option;
   }
   // get the needed details from the selected form.
 
-  let timetableID = document.getElementsByClassName("DepartureTimetableID" + option)[0]
-    .value;
-  let callingName = document.getElementsByClassName("DepartureCallingName" + option)[0]
-    .value;
+  let timetableID = document.getElementsByClassName(
+    "DepartureTimetableID" + option
+  )[0].value;
+  let callingName = document.getElementsByClassName(
+    "DepartureCallingName" + option
+  )[0].value;
   let destinationName = document.getElementsByClassName(
     "DepartureDestinationName" + option
   )[0].value;
-  let departDate = document.getElementsByClassName("DepartureDepartDate" + option)[0]
-    .value;
+  let departDate = document.getElementsByClassName(
+    "DepartureDepartDate" + option
+  )[0].value;
 
   // set the booking object.
   departure = new booking(
@@ -91,16 +103,25 @@ function selectReturn(event, option) {
     document
       .getElementById("Returnbutton" + option)
       .setAttribute("disabled", "");
+    // Change text of the button.
+    document.getElementById("Returnbutton" + option).textContent = "Selected";
   } else {
     // enable last selected button.
     document
       .getElementById("Returnbutton" + lastSelectedReturn)
       .removeAttribute("disabled");
 
+    // Change text of the last selected button back to its original state.
+
     // disable new selected button.
     document
       .getElementById("Returnbutton" + option)
       .setAttribute("disabled", "");
+
+    // Change text of the button.
+    document.getElementById("Returnbutton" + option).textContent = "Selected";
+    document.getElementById("Returnbutton" + lastSelectedReturn).textContent =
+      "Select";
 
     // update last selected variable.
     lastSelectedReturn = option;
@@ -110,15 +131,18 @@ function selectReturn(event, option) {
 
   // get the needed details from the selected form.
 
-  let timetableID = document.getElementsByClassName("ReturnTimetableID" + option)[0]
-    .value;
-  let callingName = document.getElementsByClassName("ReturnCallingName" + option)[0]
-    .value;
+  let timetableID = document.getElementsByClassName(
+    "ReturnTimetableID" + option
+  )[0].value;
+  let callingName = document.getElementsByClassName(
+    "ReturnCallingName" + option
+  )[0].value;
   let destinationName = document.getElementsByClassName(
     "ReturnDestinationName" + option
   )[0].value;
-  let departDate = document.getElementsByClassName("ReturnDepartDate" + option)[0]
-    .value;
+  let departDate = document.getElementsByClassName(
+    "ReturnDepartDate" + option
+  )[0].value;
 
   // set the booking object.
   returning = new booking(
@@ -194,8 +218,8 @@ function checkSelections() {
 
 function bookTickets() {
   console.log("Booking Tickets...");
-    console.log("Departure " + departure.toString());
-    departure.bookSailing();
+  console.log("Departure " + departure.toString());
+  departure.bookSailing();
 }
 
 // Run by the ajax function to book the return.
@@ -210,4 +234,3 @@ function bookReturn() {
     window.location.href = "./book-ticket.php";
   }
 }
-
