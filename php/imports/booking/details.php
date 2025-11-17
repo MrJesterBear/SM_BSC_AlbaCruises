@@ -30,6 +30,8 @@ if (isset($_GET['Calling']) && isset($_GET['Destination']) && isset($_GET['depar
     $noOfChildren = $_GET['Child'];
     $noOfInfants = $_GET['Infant'];
 
+    $totalOccupants = $noOfAdults + $noOfTeens + $noOfChildren; // infants do not occupy seats usually.
+
     // Connect to the database, path from executing file (tickets.php).
 
     // get the ids of the calling and destination.
@@ -75,10 +77,15 @@ if (isset($_GET['Calling']) && isset($_GET['Destination']) && isset($_GET['depar
     $timetable = $ferryQuery->getTimetable($DB, $route);
     $sailings = array();
 
+
+
     // render sailings.
     if (!empty($timetable) || $timetable != false) {
+
         foreach ($timetable as $ferry) {
             $sailings[] = new Sailings($ferry->getCallingName(), $ferry->getDestinationName(), date_create($ferry->getDepartureDate()), $ferry->getDepartureTime(), $ferry->getArivalTime(), $ferry->getTimetableID(), "Departure");
+
+            // Check to see if enough seats available for total occupants by querying the database bookings for this route and date.
             $sailings[count($sailings) - 1]->renderSailing(); // render sailing as it's created.
         }
     }
@@ -94,7 +101,7 @@ if (isset($_GET['Calling']) && isset($_GET['Destination']) && isset($_GET['depar
                 echo '<script>console.log("Return session set.");</script>';
             } else {
                 unset($_SESSION['return']);
-                '<script>console.log("Return session unset.");</script>';
+                echo '<script>console.log("Return session unset.");</script>';
             }
         }
     }

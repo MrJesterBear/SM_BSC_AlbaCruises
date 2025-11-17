@@ -18,19 +18,20 @@ class FerryQuery
         $this->departureDate = $departureDate;
     }
 
-    public function getDestinationID($DB)
+    public function getDestinationID($DB, $destinationName)
     {
         $destination = null;
         $id = null;
 
         $idQuery = $DB->prepare("SELECT destinationID FROM AlbaDestinations WHERE destinationName = ?;");
-        $idQuery->bind_param("s", $destination);
+        $idQuery->bind_param("s", $destinationName);
         $idQuery->bind_result($id);
         $idQuery->execute();
         $idQuery->store_result();
         if ($idQuery->fetch()) {
-            $callingID = $id;
-            echo '<script>console.log("Calling is id:' . $callingID . '");</script>';
+            $ID = $id;
+            echo '<script>console.log("Calling is id:' . $ID . '");</script>';
+            return $ID;
         }
         $idQuery->close();
     }

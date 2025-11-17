@@ -1,8 +1,8 @@
-<?php 
-    require("./php/classes/ferryquery.php");
-    require("./php/classes/ferries.php");
-    require("./php/pages/sailings.php");
-    require("./php/imports/connection.php");
+<?php
+require("./php/classes/ferryquery.php");
+require("./php/classes/ferries.php");
+require("./php/pages/sailings.php");
+require("./php/imports/connection.php");
 ?>
 
 <!-- ? Name:  21005729 Saul Maylin
@@ -100,31 +100,42 @@
         </div>
 
       </div>
-      <!-- Return Select (If selected) -->
-      <div class="row">
-        <div class="col-md"> <!-- Blank Space -->
-        </div>
-        <div class="col-md"> <!-- Return Select -->
-          <?php
-          if (isset($_GET['returnDate'])) {
-            echo '<h2 class="text-center">Returns</h2>';
-            echo '<div class="row main-background mx-3" id="return-select-container">';
-            include('./php/imports/booking/details.php');
-            echo '</div>';
-          }
-          ?>
-        </div>
+    </div>
+    <!-- Return Select (If selected) -->
+    <div class="row mt-2">
+      <div class="col-md"> <!-- Blank Space -->
       </div>
+      <div class="col-md"> <!-- Return Select -->
+        <?php
+        if (isset($_GET['returnDate'])) {
+          echo '<h2 class="text-center">Returns</h2>';
+          echo '<div class="row main-background mx-3" id="return-select-container">';
+          include('./php/imports/booking/details.php');
+          echo '</div>';
+        }
+        ?>
+      </div>
+    </div>
 
-      <!-- Payment Area -->
-      <div class="row">
-        <div class="col-md"> <!-- Blank Space -->
-        </div>
-        <div class="col-md"> <!-- Payment Select -->
-          <p class ="text-center font-weight-bold"> </p>
+    <!-- Payment Area -->
+    <div class="row mt-4">
+      <div class="col-md"> <!-- Blank Space -->
+      </div>
+      <div class="col-md"> <!-- Payment Select -->
+        <!-- <h2 class="text-center font-weight-bold"> Price </h2> -->
+        <div class="row main-background mx-3" id="price-container">
+          <?php
+          include('./php/imports/booking/pricing.php');
+          ?>
+
+          <div class="py-3 text-center">
+            <button type="submit" class="btn primary-button" id="bookTicketsButton" disabled>Book Tickets</button>
+          </div>
+
         </div>
       </div>
     </div>
+  </div>
   </div>
 
 
