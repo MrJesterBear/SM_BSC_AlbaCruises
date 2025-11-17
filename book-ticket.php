@@ -66,7 +66,16 @@
   <!-- * Main Content -->
 
   <div class="container-fluid text-center">
-
+    <?php session_start();
+    // Check if user is logged in, otherwise redirect to login page.
+// also check if booking session exists.
+    if (!isset($_SESSION['UID'])) {
+      header("Location: login.php");
+    }
+    if (isset($_SESSION['bookingID'])) {
+      unset($_SESSION['bookingID']);
+    }
+    ?>
   </div>
 
   <!-- Footer -->

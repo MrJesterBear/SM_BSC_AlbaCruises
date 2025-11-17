@@ -3,6 +3,7 @@ require("./php/classes/ferryquery.php");
 require("./php/classes/ferries.php");
 require("./php/pages/sailings.php");
 require("./php/imports/connection.php");
+session_start()
 ?>
 
 <!-- ? Name:  21005729 Saul Maylin

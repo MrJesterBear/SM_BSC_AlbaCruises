@@ -99,6 +99,7 @@ if ($noOfInfants > 0) {
     echo '<p class = "text-white">' . $tripType . ' Infant Ticket: Free x ' . $noOfInfants . '</p>';
 }
 
+$_SESSION['totalPrice'] = $totalPrice;
 echo '<h3 class ="text-white font-weight-bold">Total Price: £' . number_format($totalPrice, 2) . '</h3>';
 
 ?>

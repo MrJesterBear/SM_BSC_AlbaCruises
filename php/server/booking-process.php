@@ -31,15 +31,48 @@ $destinationName = $_POST['destinationName'];
 $departDate = $_POST['departDate'];
 $occupants = $_POST['occupants'];
 // Create the ticket.
-// $ticket = $DB->prepare("");
-unset($_SESSION['bookingID']);
-echo json_encode((array('error' => "none")));
+// unset($_SESSION['bookingID']);
+
+// get routeid.
+$routeID = $DB->prepare("SELECT routeID FROM AlbaTimetable WHERE timetableID = ?;");
+$routeID->bind_param("i", $timetableID);
+$routeID->bind_result($ID);
+if ($routeID->execute()) {
+    $routeID->store_result();
+
+    if ($routeID->fetch()) {
+        $routeIDFinal = $ID;
+    } else {
+        echo json_encode((array('error' => "route_not_found"))); // no route found
+    }
+} else {
+    echo json_encode((array('error' => "route_query_failed"))); // query failed / couldnt reach db.
+}
+$routeID->close();
+
+// insert ticket into db.
+if (isset($routeIDFinal)) {
+    $ticket = $DB->prepare("INSERT INTO AlbaTickets (bookingID, routeID, timetableID, bookingDate, occupants) VALUES (?, ?, ?, ?, ?)");
+    $ticket->bind_param("iiisi", $_SESSION['bookingID'], $routeIDFinal, $timetableID, $departDate, $occupants);
+    if ($ticket->execute()) {
+        // Great Success as Borat would say!
+        echo json_encode((array('error' => "NONE")));
+    } else {
+        echo json_encode((array('error' => "ticket_creation_failed")));
+    }
+    $ticket->close();
+
+} else {
+    echo json_encode((array('error' => "booking_failed")));
+}
+
+
 
 function generateBooking($DB)
 {
     // Generate a booking reference and capture that number.
-    $bookingRef = $DB->prepare("INSERT INTO AlbaBookings (customerID) VALUES (?)");
-    $bookingRef->bind_param("i", $_SESSION['UID']);
+    $bookingRef = $DB->prepare("INSERT INTO AlbaBookings (customerID, totalPaid) VALUES (?, ?)");
+    $bookingRef->bind_param("id", $_SESSION['UID'], $_SESSION['totalPrice']);
 
     if ($bookingRef->execute()) {
         $bookingRef->close();

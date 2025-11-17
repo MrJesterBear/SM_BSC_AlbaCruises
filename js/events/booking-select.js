@@ -194,34 +194,20 @@ function checkSelections() {
 
 function bookTickets() {
   console.log("Booking Tickets...");
-
-  // call the ajax function to book the departure sailing.
-  if (returnSelected != null) {
-    // do both sailings.
     console.log("Departure " + departure.toString());
+    departure.bookSailing();
+}
+
+// Run by the ajax function to book the return.
+function bookReturn() {
+  if (returnSelected != null) {
+    // do the return booking.
     console.log("Return " + returning.toString());
-
-    console.log("Booking Departure Sailing...");
-    let departureSuccess = departure.bookSailing();
-
-    // if departure was successful, book return.
-    if (departureSuccess) {
-      console.log("Departure booked successfully, booking return sailing...");
-      let returnSuccess = returning.bookSailing();
-
-      // if both successful, go to book-ticket page. normally this will be where payment is done, but for this it'll just be a confirmation.
-      if (returnSuccess) {
-        console.log("Both sailings booked successfully.");
-        window.location.href = "./book-ticket.php";
-      }
-    }
+    returning.bookReturn();
   } else {
-    // do just one.
-    console.log("Booking Departure Sailing...");
-    let departureSuccess = departure.bookSailing();
-    if (departureSuccess) {
-      console.log("Departure sailing booked successfully.");
-      window.location.href = "./book-ticket.php";
-    }
+    // If there is no return, just redirect to the book-ticket page.
+    console.log("No return booking needed, redirecting to book-ticket page.");
+    window.location.href = "./book-ticket.php";
   }
 }
+
