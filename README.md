@@ -20,11 +20,17 @@ To test this website, go to /.secrets/ to run the setup.sql file. once this has 
 ```
 This is due to the connection to the database being done through the get_cfg_var() method
 
+## Webserver
+For the webserver, the documentroot **must be set to the website folder** otherwise some functionality breaks.
+
 ## Test Credentials
 User Type | Email | Password
 
 - Basic | jerald.davidson@hotmail.co.uk | jerald4life!
 - Staff | rochele.whitty@albacruises.scot | cruisesAreKing#
+
+## Test Data
+The test data is based on the timetable for 2024 with dates from 13th May to 18th October.
 
 # Last Update
 11:09 03/11/2025

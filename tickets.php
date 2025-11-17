@@ -1,6 +1,14 @@
+<?php
+require("./php/classes/ferryquery.php");
+require("./php/classes/ferries.php");
+require("./php/pages/sailings.php");
+require("./php/imports/connection.php");
+session_start()
+?>
+
 <!-- ? Name:  21005729 Saul Maylin
-? Date: 22/10/2025
-? v1
+? Date: 17/11/2025
+? v1.3
 ? Project: Alba Cruises
 ? -->
 
@@ -27,6 +35,11 @@
     integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
     crossorigin="anonymous"></script>
 
+  <!-- Import booking select javascript -->
+   <script src="./js/ajax/booking-ajax.js"></script>
+  <script src="./js/events/booking-select.js"></script>
+
+
   <!-- ! Import custom stylesheet -->
   <link rel="stylesheet" href="/css/stylesheet.css" />
 
@@ -39,13 +52,13 @@
 
   <!-- * Secondary nav, Image & Nav -->
 
-<!-- ! Secondary Nav -->
- <div class="nav-colour">
-    <ul class = "list-group list-group-horizontal justify-content-end">
-      <li class ="list-group-item"><a class = "nav-link" href="#">Languages</a></li>
-      <li class ="list-group-item"><a class = "nav-link" href="/staff-login">Staff</a></li>
+  <!-- ! Secondary Nav -->
+  <div class="nav-colour">
+    <ul class="list-group list-group-horizontal justify-content-end">
+      <li class="list-group-item"><a class="nav-link" href="#">Languages</a></li>
+      <li class="list-group-item"><a class="nav-link" href="/staff-login">Staff</a></li>
     </ul>
- </div>
+  </div>
 
   <!-- ! Image -->
   <div class="nav-colour d-flex justify-content-center">
@@ -66,8 +79,71 @@
   <!-- * Main Content -->
 
   <div class="container-fluid text-center">
+    <!-- Booking Box & Departure Select -->
+    <div class="row mt-4">
 
+      <div class="col-md booking-form"> <!-- Booking Box -->
+        <script>
+          // Fetch the booking form and insert it here.
+          fetch('/assets/html/booking-form.html') // Fetches the booking form HTML file.
+            .then(response => response.text()) // Converts the response to text.
+            .then(data => { // Inserts the fetched HTML into the booking-form div.
+              var bookingForm = document.getElementsByClassName('booking-form')[0];
+              bookingForm.innerHTML += data;
+            });
+        </script>
+      </div>
+
+      <div class="col-md"> <!-- Departure Select -->
+        <h2 class="text-center">Departures</h2>
+
+        <div class="row main-background mx-3" id="departure-select-container">
+          <!-- Will be populated by database query based on selected parameters -->
+          <?php
+          // include('./php/imports/code-error.php');
+          include('./php/imports/booking/details.php');
+          ?>
+        </div>
+
+      </div>
+    </div>
+    <!-- Return Select (If selected) -->
+    <div class="row mt-2">
+      <div class="col-md"> <!-- Blank Space -->
+      </div>
+      <div class="col-md"> <!-- Return Select -->
+        <?php
+        if (isset($_GET['returnDate'])) {
+          echo '<h2 class="text-center">Returns</h2>';
+          echo '<div class="row main-background mx-3" id="return-select-container">';
+          include('./php/imports/booking/details.php');
+          echo '</div>';
+        }
+        ?>
+      </div>
+    </div>
+
+    <!-- Payment Area -->
+    <div class="row mt-4">
+      <div class="col-md"> <!-- Blank Space -->
+      </div>
+      <div class="col-md"> <!-- Payment Select -->
+        <!-- <h2 class="text-center font-weight-bold"> Price </h2> -->
+        <div class="row main-background mx-3" id="price-container">
+          <?php
+          include('./php/imports/booking/pricing.php');
+          ?>
+
+          <div class="py-3 text-center">
+            <button type="submit" class="btn primary-button" id="bookTicketsButton" onclick="bookTickets()" disabled>Book Tickets</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
+  </div>
+
 
   <!-- Footer -->
   <div class="footer container-fluid text-center bg-secondary border border-border">
@@ -78,7 +154,11 @@
     </script>
   </div>
 
+  <!-- Import Booking Search javascript -->
+  <script src="./js/events/booking-search.js"></script>
 
+  <!-- import jquery -->
+   <script src ="./js/imports/jquery-3.7.1.min.js"></script>
 </body>
 
 </html>
