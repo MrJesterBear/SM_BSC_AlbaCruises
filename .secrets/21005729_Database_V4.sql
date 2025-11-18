@@ -77,6 +77,7 @@ CREATE TABLE AlbaTimetable(
 CREATE TABLE AlbaBookings(
 	bookingID INT(10) PRIMARY KEY AUTO_INCREMENT,
     customerID INT(8) NOT NULL,
+    totalPaid DECIMAL(6,2) NOT NULL,
     FOREIGN KEY (customerID) REFERENCES AlbaCustomers(customerID)
 );
 
