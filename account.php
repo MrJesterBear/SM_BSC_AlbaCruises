@@ -9,8 +9,8 @@ if (!isset($_SESSION['UID'])) {
 ?>
 
 <!-- ? Name:  21005729 Saul Maylin
-? Date: 22/10/2025
-? v1
+? Date: 18/11/2025
+? v1.1
 ? Project: Alba Cruises
 ? -->
 
@@ -49,13 +49,13 @@ if (!isset($_SESSION['UID'])) {
 
   <!-- * Secondary nav, Image & Nav -->
 
-<!-- ! Secondary Nav -->
- <div class="nav-colour">
-    <ul class = "list-group list-group-horizontal justify-content-end">
-      <li class ="list-group-item"><a class = "nav-link" href="#">Languages</a></li>
-      <li class ="list-group-item"><a class = "nav-link" href="/staff-login">Staff</a></li>
+  <!-- ! Secondary Nav -->
+  <div class="nav-colour">
+    <ul class="list-group list-group-horizontal justify-content-end">
+      <li class="list-group-item"><a class="nav-link" href="#">Languages</a></li>
+      <li class="list-group-item"><a class="nav-link" href="/staff-login">Staff</a></li>
     </ul>
- </div>
+  </div>
 
   <!-- ! Image -->
   <div class="nav-colour d-flex justify-content-center">
@@ -74,11 +74,24 @@ if (!isset($_SESSION['UID'])) {
   </nav>
 
   <!-- * Main Content -->
+  <!-- Using some exerpts from some of my old unfinished projects: https://github.com/MrJesterBear/Portfolio & https://github.com/MrJesterBear/Project-Crawler -->
+  <div class="container text-center">
+    <?php
+    echo "<p> Welcome, " . $_SESSION["UID"] . "! </p>";
+    ?>
+    <h2> ALBA Cruises</h2>
+    <p>Home</p>
+  </div>
 
-  <div class="container-fluid text-center">
-  <?php 
-  echo "Welcome, ".$_SESSION["UID"]."!";
-  ?>
+  <div class="container text-center Home-Screen main-background">
+    <!-- Fetch the home screen html page. -->
+    <script>
+      fetch("/assets/html/account-home.html")
+        .then(response => response.text())
+        .then(data => {
+          document.getElementsByClassName('Home-Screen')[0].innerHTML = data;
+        });
+    </script>
   </div>
 
   <!-- Footer -->
