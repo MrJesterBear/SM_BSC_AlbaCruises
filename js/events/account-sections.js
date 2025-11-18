@@ -14,7 +14,7 @@ function changeToBooking() {
       document.getElementsByClassName("Screen")[0].innerHTML = data;
       document
         .getElementsByClassName("Screen")[0]
-        .setAttribute("id", "Account-Details");
+        .setAttribute("id", "Account-Booking");
     });
   changeHeader("Bookings");
 }

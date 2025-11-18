@@ -94,7 +94,7 @@ if (isset($_SESSION['UID'])) {
           <!-- Email Row -->
           <div class="mb-2">
             <label for="email" class="form-label">Email</label>
-            <input name="email" type="email" class="form-control email" id="email" placeholder="Enter Your Email...">
+            <input name="email" type="email" class="form-control email" id="email" placeholder="Enter Your Email..." max="300">
           </div>
 
           <!-- Email Error Row -->
@@ -136,7 +136,7 @@ if (isset($_SESSION['UID'])) {
           <div class="mb-2">
             <label for="firstName" class="form-label">First Name</label>
             <input name="firstName" type="text" class="form-control firstName" id="firstName"
-              placeholder="Enter Your First Name...">
+              placeholder="Enter Your First Name..." max="150">
           </div>
 
           <!-- First Name Error Row -->
@@ -150,7 +150,7 @@ if (isset($_SESSION['UID'])) {
           <div class="mb-2">
             <label for="lastName" class="form-label">Last Name</label>
             <input name="lastName" type="text" class="form-control lastName" id="lastName"
-              placeholder="Enter Your Last Name...">
+              placeholder="Enter Your Last Name..." max="150">
           </div>
 
           <!-- Last Name Error Row -->
@@ -163,7 +163,7 @@ if (isset($_SESSION['UID'])) {
           <!-- Email Row -->
           <div class="mb-2">
             <label for="email" class="form-label">Email</label>
-            <input name="email" type="email" class="form-control email" id="email" placeholder="Enter Your Email...">
+            <input name="email" type="email" class="form-control email" id="email" placeholder="Enter Your Email..." max="300">
           </div>
 
           <!-- Email Error Row -->
