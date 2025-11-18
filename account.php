@@ -83,7 +83,7 @@ if (!isset($_SESSION['UID'])) {
     <p>Home</p>
   </div>
 
-  <div class="container text-center Home-Screen main-background">
+  <div class="container text-center Home-Screen">
     <!-- Fetch the home screen html page. -->
     <script>
       fetch("/assets/html/account-home.html")
@@ -92,6 +92,24 @@ if (!isset($_SESSION['UID'])) {
           document.getElementsByClassName('Home-Screen')[0].innerHTML = data;
         });
     </script>
+  </div>
+
+  <!-- Navigaion for account pages. -->
+  <div class="container-fluid secondary-background py-3">
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+        <a href="#" onclick=changeToBooking()><img src="/assets/account/calendar-nav.png" alt="Account booking graphic"
+            class="img-fluid" /></a>
+      </div>
+      <div class="col d-flex justify-content-center">
+        <a href="#" onclick=changeToHome()><img src="/assets/account/home-nav.png" alt="Account Home graphic"
+            class="img-fluid" /></a>
+      </div>
+      <div class="col d-flex justify-content-center">
+        <a href="#" onclick=changeToAccount()><img src="/assets/account/user-nav.png" alt="Account account graphic"
+            class="img-fluid" /></a>
+      </div>
+    </div>
   </div>
 
   <!-- Footer -->
