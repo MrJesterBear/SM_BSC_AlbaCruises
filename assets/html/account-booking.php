@@ -37,9 +37,91 @@ Account booking Page.
                         if ($stmt->num_rows > 0) {
                             // Sort bookings into a list. if a booking has more than one ticket, it is a return.
                             $numberOfTickets = $stmt->num_rows;
-                            echo "<h4> You have " . $numberOfTickets . " tickets. </h4>";
+                            // echo "<h4> You have " . $numberOfTickets . " tickets. </h4>";
 
-                            
+                            $tickets = array();
+                            require('../../php/classes/tickets.php');
+                            while ($stmt->fetch()) {
+                                $tickets[] = new Tickets($ticketID, $bookingID, $routeID, $timetableID, $bookingDate, null, null, null);
+                            }
+
+                            // get more info for each ticket. (Route names, depart time, arrival time).
+                            foreach ($tickets as $ticket) {
+                                $query = "SELECT AlbaRoutes.routeDesc, AlbaTimetable.departureTime, AlbaTimetable.arivalTime
+                                        FROM AlbaRoutes
+                                        join AlbaTimetable
+                                        on AlbaRoutes.routeID = AlbaTimetable.routeID
+                                        WHERE AlbaTimetable.routeID = ?
+                                    GROUP BY AlbaTimetable.routeID;";
+                                $stmt = $DB->prepare($query);
+                                $route = $ticket->getRouteID();
+                                $stmt->bind_param("i", $route);
+                                if ($stmt->execute()) {
+                                    $stmt->store_result();
+                                    $stmt->bind_result($routeNames, $departTime, $arrivalTime);
+                                    while ($stmt->fetch()) {
+                                        // set the route names etc.
+                                        $ticket->setRouteNames($routeNames);
+                                        $ticket->setDepartTime($departTime);
+                                        $ticket->setArrivalTime($arrivalTime);
+                                    }
+                                } else {
+                                    echo "<h3 class='error-box text-danger'> An error occurred fetching your bookings. Please try again later. </h3>";
+                                    break;
+                                }
+                            }
+
+                            $lastBooking = 0;
+                            $i = 0;
+
+                            // Display each ticket.
+                            foreach ($tickets as $ticket) {
+                                if ($lastBooking != $ticket->getBookingID()) {
+                                    // end previous booking row. for single tickets mainly.
+                                    if ($i > 0) {
+                                        echo '</div>'; // close previous row.
+                                        $i = 0; // reset counter.
+                                    }
+                                    // new booking, start a new row.
+                                    $lastBooking = $ticket->getBookingID();
+                                    echo
+                                        '<div class = "row py-2 booking' . $lastBooking . '">',
+                                        '<div class = "col-sm">';
+                                    $date = date_create($ticket->getBookingDate());
+                                    echo '<h4>' . date_format($date, 'd/m/y') . '</h4>',
+                                        '<p>' . $ticket->getRouteNames() . '</p>',
+                                        '</div>',
+
+                                        '<div class = "col-sm">',
+                                        '<p> Depart: ' . $ticket->getDepartTime() . '</p>',
+                                        '<p> Arrive: ' . $ticket->getArrivalTime() . '</p>',
+                                        '</div>';
+                                    $i++;
+                                } else {
+                                    // same booking, continue row.
+                                    echo
+                                        '<div class = "col-sm">';
+                                    $date = date_create($ticket->getBookingDate());
+                                    echo '<h4>' . date_format($date, 'd/m/y') . '</h4>',
+                                        '<p>' . $ticket->getRouteNames() . '</p>',
+                                        '</div>',
+
+                                        '<div class = "col-sm">',
+                                        '<p> Depart: ' . $ticket->getDepartTime() . '</p>',
+                                        '<p> Arrive: ' . $ticket->getArrivalTime() . '</p>',
+                                        '</div>';
+
+                                    // As bookings will have at most 2 tickets, we can close the row here.
+                                    echo '</div>'; // close row and button.
+                                    // set lastBooking.
+                                    $lastBooking = $ticket->getBookingID();
+                                    $i = 0; // Row has been ended, so reset counter.
+                                }
+
+                            }
+
+
+
 
                         } else { // No bookings found.
                             echo "<h3> It seems you have no bookings... </h3>";
@@ -61,7 +143,7 @@ Account booking Page.
 
             <div class="col-md booking-details mt-3">
                 <!-- if a booking is selected, populate this div! -->
-                <!-- <h3> Booking Details</h3> -->
+                <h3> Booking Details</h3>
             </div>
         </div>
     </div>

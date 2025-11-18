@@ -243,12 +243,3 @@ SELECT * FROM AlbaTimetable;
 
 SELECT * FROM AlbaBookings;
 SELECT * FROM AlbaTickets;
-
--- Get Bookings
-SELECT AlbaTickets.ticketID, AlbaTickets.bookingID, AlbaTickets.routeID, AlbaTickets.timetableID, AlbaTickets.bookingDate
-FROM AlbaTickets
-join AlbaBookings
-on AlbaTickets.bookingID = AlbaBookings.bookingID
-join AlbaCustomers
-on AlbaBookings.customerID = AlbaCustomers.customerID
-WHERE AlbaCustomers.customerID = 1
