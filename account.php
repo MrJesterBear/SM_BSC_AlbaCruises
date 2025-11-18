@@ -76,20 +76,18 @@ if (!isset($_SESSION['UID'])) {
   <!-- * Main Content -->
   <!-- Using some exerpts from some of my old unfinished projects: https://github.com/MrJesterBear/Portfolio & https://github.com/MrJesterBear/Project-Crawler -->
   <div class="container text-center">
-    <?php
-    echo "<p> Welcome, " . $_SESSION["UID"] . "! </p>";
-    ?>
     <h2> ALBA Cruises</h2>
     <p>Home</p>
   </div>
 
-  <div class="container text-center Home-Screen">
+  <div class="container text-center Screen">
     <!-- Fetch the home screen html page. -->
     <script>
       fetch("/assets/html/account-home.html")
         .then(response => response.text())
         .then(data => {
-          document.getElementsByClassName('Home-Screen')[0].innerHTML = data;
+          document.getElementsByClassName('Screen')[0].innerHTML = data;
+          document.getElementsByClassName('Screen')[0].setAttribute('id', 'Account-Home');
         });
     </script>
   </div>
@@ -121,7 +119,7 @@ if (!isset($_SESSION['UID'])) {
     </script>
   </div>
 
-
+<script src="./js/events/account-sections.js"></script>
 </body>
 
 </html>
