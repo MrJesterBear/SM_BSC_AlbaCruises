@@ -1,13 +1,3 @@
-<?php
-// Double check user is not logged in.
-session_start();
-
-if (!isset($_SESSION['UID'])) {
-  // If user is not logged in, redirect to the home page.
-  header("Location: /");
-}
-?>
-
 <!-- ? Name:  21005729 Saul Maylin
 ? Date: 18/11/2025
 ? v1.1
@@ -44,6 +34,15 @@ if (!isset($_SESSION['UID'])) {
 
 
 </head>
+<?php
+// Double check user is not logged in.
+session_start();
+
+if (!isset($_SESSION['UID'])) {
+  // If user is not logged in, redirect to the home page.
+  header("Location: /");
+}
+?>
 
 <body class="bodyDefault">
 
@@ -77,10 +76,10 @@ if (!isset($_SESSION['UID'])) {
   <!-- Using some exerpts from some of my old unfinished projects: https://github.com/MrJesterBear/Portfolio & https://github.com/MrJesterBear/Project-Crawler -->
   <div class="container text-center">
     <h2> ALBA Cruises</h2>
-    <p>Home</p>
+    <p class="screen-header">Home</p>
   </div>
 
-  <div class="container text-center Screen">
+  <div class="container text-center Screen my-3">
     <!-- Fetch the home screen html page. -->
     <script>
       fetch("/assets/html/account-home.html")
@@ -119,7 +118,8 @@ if (!isset($_SESSION['UID'])) {
     </script>
   </div>
 
-<script src="./js/events/account-sections.js"></script>
+  <script src="./js/events/account-sections.js"></script>
+  <script src="./js/events/account-function.js"></script>
 </body>
 
 </html>
