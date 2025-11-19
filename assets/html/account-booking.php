@@ -38,9 +38,10 @@ Account booking Page.
                             // Sort bookings into a list. if a booking has more than one ticket, it is a return.
                             $numberOfTickets = $stmt->num_rows;
                             // echo "<h4> You have " . $numberOfTickets . " tickets. </h4>";
-
+                    
                             $tickets = array();
                             require('../../php/classes/tickets.php');
+                            require('../../php/classes/booking.php');
                             while ($stmt->fetch()) {
                                 $tickets[] = new Tickets($ticketID, $bookingID, $routeID, $timetableID, $bookingDate, null, null, null);
                             }
@@ -73,6 +74,10 @@ Account booking Page.
 
                             $lastBooking = 0;
                             $i = 0;
+                            $counter = 0;
+
+                            // Create objects to hold booking info in general.
+                            $bookings = array();
 
                             // Display each ticket.
                             foreach ($tickets as $ticket) {
@@ -81,7 +86,9 @@ Account booking Page.
                                     if ($i > 0) {
                                         echo '</div>'; // close previous row.
                                         $i = 0; // reset counter.
+                                        $counter++;
                                     }
+
                                     // new booking, start a new row.
                                     $lastBooking = $ticket->getBookingID();
                                     echo
@@ -97,6 +104,15 @@ Account booking Page.
                                         '<p> Arrive: ' . $ticket->getArrivalTime() . '</p>',
                                         '</div>';
                                     $i++;
+
+                                    // Start a new booking for later display, and populate.
+                                    $bookings[$counter] = new bookingDisplay($ticket->getBookingID());
+                                    $bookings[$counter]->setDepartTicketID($ticket->getTicketID());
+                                    $bookings[$counter]->setDepartRouteID($ticket->getRouteID());
+                                    $bookings[$counter]->setDepartTimetableID($ticket->getTimetableID());
+                                    $bookings[$counter]->setRouteNames($ticket->getRouteNames());
+                                    $bookings[$counter]->setDepartDate($ticket->getBookingDate());
+                                    $bookings[$counter]->setDepartureDepartTime($ticket->getDepartTime());
                                 } else {
                                     // same booking, continue row.
                                     echo
@@ -116,6 +132,23 @@ Account booking Page.
                                     // set lastBooking.
                                     $lastBooking = $ticket->getBookingID();
                                     $i = 0; // Row has been ended, so reset counter.
+
+                                    // Populate return ticket info for booking display.
+                                    $bookings[$counter]->setReturnTicketID($ticket->getTicketID());
+                                    $bookings[$counter]->setReturnRouteID($ticket->getRouteID());
+                                    $bookings[$counter]->setReturnTimetableID($ticket->getTimetableID());
+                                    $bookings[$counter]->setReturnDate($ticket->getBookingDate());
+                                    $bookings[$counter]->setReturnDepartTime($ticket->getDepartTime());
+
+                                    // Concatinate route names for return.
+                                    $existingRoutes = $bookings[$counter]->getRouteNames();
+                                    $newRoutes = $ticket->getRouteNames();
+                                    $combinedRoutes = $existingRoutes . "," . $newRoutes;
+
+                                    $bookings[$counter]->setRouteNames($combinedRoutes);
+
+                                    // increase counter.
+                                    $counter++;
                                 }
 
                             }
@@ -142,8 +175,13 @@ Account booking Page.
             </div>
 
             <div class="col-md booking-details mt-3">
-                <!-- if a booking is selected, populate this div! -->
-                <h3> Booking Details</h3>
+                <!-- Storage of ticket information. all hidden unless option selected -->
+                <?php
+
+                foreach ($bookings as $trip) {
+                    $trip->renderBooking();
+                }
+                ?>
             </div>
         </div>
     </div>
