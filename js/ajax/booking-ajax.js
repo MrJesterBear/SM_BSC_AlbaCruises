@@ -102,7 +102,7 @@ class booking {
 
           case "NONE":
             console.log("Ticket booked successfully.");
-            window.location.href = "./book-ticket.php";
+            window.location.href = "./confirmation.php";
             break;
         }
       },

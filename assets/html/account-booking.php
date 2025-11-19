@@ -1,7 +1,7 @@
 <!--  
  Saul Maylin
- 18/11/2025
- v1
+ 19/11/2025
+ v1.1
 Account booking Page.
 -->
 
@@ -10,8 +10,8 @@ Account booking Page.
 
 <body>
     <div class="container my-3">
-        <div class="row mt-3 text-center">
-            <div class="col-md">
+        <div class="row my-3 text-center">
+            <div class="col-sm">
                 <div class="previous-bookings main-background text-white">
                     <h3>Bookings</h3>
 
@@ -92,7 +92,7 @@ Account booking Page.
                                     // new booking, start a new row.
                                     $lastBooking = $ticket->getBookingID();
                                     echo
-                                        '<div class = "row py-2 booking' . $lastBooking . '">',
+                                        '<div class = "row my-2 actionDiv booking' . $lastBooking . '" onclick="showBookingDetails(' . $lastBooking . ')">',
                                         '<div class = "col-sm">';
                                     $date = date_create($ticket->getBookingDate());
                                     echo '<h4>' . date_format($date, 'd/m/y') . '</h4>',
@@ -132,7 +132,7 @@ Account booking Page.
                                     // set lastBooking.
                                     $lastBooking = $ticket->getBookingID();
                                     $i = 0; // Row has been ended, so reset counter.
-
+                    
                                     // Populate return ticket info for booking display.
                                     $bookings[$counter]->setReturnTicketID($ticket->getTicketID());
                                     $bookings[$counter]->setReturnRouteID($ticket->getRouteID());
@@ -174,13 +174,15 @@ Account booking Page.
                 </div>
             </div>
 
-            <div class="col-md booking-details mt-3">
+            <div class="col-sm booking-details my-3">
                 <!-- Storage of ticket information. all hidden unless option selected -->
                 <?php
-
-                foreach ($bookings as $trip) {
-                    $trip->renderBooking();
+                if (!empty($bookings)) {
+                    foreach ($bookings as $trip) {
+                        $trip->renderBooking();
+                    }
                 }
+
                 ?>
             </div>
         </div>

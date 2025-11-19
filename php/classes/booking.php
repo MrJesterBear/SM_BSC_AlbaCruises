@@ -1,7 +1,7 @@
 <?php
 // Saul Maylin 21005729
 //  19/11/2025
-// v1
+// v1.1
 // Booking class
 
 class bookingDisplay
@@ -58,6 +58,20 @@ class bookingDisplay
                 '<p> Return Departure Time: ' . $this->returnDepartTime . '</p>';
         }
 
+        // Echo buttons for managing the booking - Printing, Edit and Cancelling.
+        echo
+            '<div class="d-flex justify-content-center my-3">',
+            '<button class="btn primary-button" onclick="printBooking(' . $this->bookingID . ')">Print Booking</button>',
+            '<button class="btn primary-button" onclick="editBooking(' . $this->bookingID . ')">Edit Booking</button>',
+            '<button class="btn btn-danger" onclick="cancelBooking(' . $this->bookingID . ')">Cancel Booking</button>',
+            '</div>';
+
+        // Warn user about cancelling booking.
+        echo
+            '<input type="checkbox" id="confirm-cancel-booking-' . $this->bookingID . '" hidden />',
+            '<label id="cancel-label-' . $this->bookingID . '" for="confirm-cancel-booking-' . $this->bookingID . '" class="text-danger" hidden>',
+            ' I confirm I want to cancel my booking and will be charged an Administration Fee of £5 if sailing is within 24 hours. </input>';
+        // Close details.
         echo '</div>';
     }
 

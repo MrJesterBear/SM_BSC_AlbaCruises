@@ -56,6 +56,15 @@ Colour CSS
   background-color: #D9D9D9;
 }
 
+.actionDiv {
+  background-color: #feb0ed;
+}
+
+.actionDiv:hover {
+  background-color: #fa99e5;
+  cursor: grab;
+}
+
 /* Dynamic remove for mobile */
 @media (max-width: 768px) {
   .destroy-on-mobile {
