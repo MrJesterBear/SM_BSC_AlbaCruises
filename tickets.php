@@ -101,6 +101,7 @@ session_start()
           <!-- Will be populated by database query based on selected parameters -->
           <?php
           // include('./php/imports/code-error.php');
+          unset($_SESSION['bookingID']);
           include('./php/imports/booking/details.php');
           ?>
         </div>

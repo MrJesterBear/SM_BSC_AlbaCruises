@@ -1,16 +1,6 @@
-<?php
-// Double check user is not logged in.
-session_start();
-
-if (!isset($_SESSION['UID'])) {
-  // If user is not logged in, redirect to the home page.
-  header("Location: /");
-}
-?>
-
 <!-- ? Name:  21005729 Saul Maylin
-? Date: 22/10/2025
-? v1
+? Date: 121/11/2025
+? v1.2
 ? Project: Alba Cruises
 ? -->
 
@@ -21,7 +11,7 @@ if (!isset($_SESSION['UID'])) {
   <title>Account | Alba Cruises</title>
 
   <!-- * Meta data for indexing-->
-  <meta name="description" content="The home page for Alba Cruises." />
+  <meta name="description" content="The account page for Alba Cruises." />
   <meta name="keywords" content="Alba, Cruises, Travel, Adventure, booking, ferry" />
   <meta name="author" content="21005729 Saul Maylin" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -44,18 +34,27 @@ if (!isset($_SESSION['UID'])) {
 
 
 </head>
+<?php
+// Double check user is not logged in.
+session_start();
+
+if (!isset($_SESSION['UID'])) {
+  // If user is not logged in, redirect to the home page.
+  header("Location: /");
+}
+?>
 
 <body class="bodyDefault">
 
   <!-- * Secondary nav, Image & Nav -->
 
-<!-- ! Secondary Nav -->
- <div class="nav-colour">
-    <ul class = "list-group list-group-horizontal justify-content-end">
-      <li class ="list-group-item"><a class = "nav-link" href="#">Languages</a></li>
-      <li class ="list-group-item"><a class = "nav-link" href="/staff-login">Staff</a></li>
+  <!-- ! Secondary Nav -->
+  <div class="nav-colour">
+    <ul class="list-group list-group-horizontal justify-content-end">
+      <li class="list-group-item"><a class="nav-link" href="#">Languages</a></li>
+      <li class="list-group-item"><a class="nav-link" href="/staff-login">Staff</a></li>
     </ul>
- </div>
+  </div>
 
   <!-- ! Image -->
   <div class="nav-colour d-flex justify-content-center">
@@ -73,12 +72,47 @@ if (!isset($_SESSION['UID'])) {
     </script>
   </nav>
 
-  <!-- * Main Content -->
-
-  <div class="container-fluid text-center">
-  <?php 
-  echo "Welcome, ".$_SESSION["UID"]."!";
+  <!-- Error Warning -->
+  <?php
+  include_once("./php/imports/error-handling.php");
   ?>
+
+
+  <!-- * Main Content -->
+  <!-- Using some exerpts from some of my old unfinished projects: https://github.com/MrJesterBear/Portfolio & https://github.com/MrJesterBear/Project-Crawler -->
+  <div class="container text-center">
+    <h2> ALBA Cruises</h2>
+    <p class="screen-header">Home</p>
+  </div>
+
+  <div class="container text-center Screen my-3">
+    <!-- Fetch the home screen html page. -->
+    <script>
+      fetch("/assets/html/account-home.html")
+        .then(response => response.text())
+        .then(data => {
+          document.getElementsByClassName('Screen')[0].innerHTML = data;
+          document.getElementsByClassName('Screen')[0].setAttribute('id', 'Account-Home');
+        });
+    </script>
+  </div>
+
+  <!-- Navigaion for account pages. -->
+  <div class="container-fluid secondary-background py-3">
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+        <a href="#" onclick=changeToBooking()><img src="/assets/account/calendar-nav.png" alt="Account booking graphic"
+            class="img-fluid" /></a>
+      </div>
+      <div class="col d-flex justify-content-center">
+        <a href="#" onclick=changeToHome()><img src="/assets/account/home-nav.png" alt="Account Home graphic"
+            class="img-fluid" /></a>
+      </div>
+      <div class="col d-flex justify-content-center">
+        <a href="#" onclick=changeToAccount()><img src="/assets/account/user-nav.png" alt="Account account graphic"
+            class="img-fluid" /></a>
+      </div>
+    </div>
   </div>
 
   <!-- Footer -->
@@ -90,7 +124,8 @@ if (!isset($_SESSION['UID'])) {
     </script>
   </div>
 
-
+  <script src="./js/events/account-sections.js"></script>
+  <script src="./js/events/account-function.js"></script>
 </body>
 
 </html>
