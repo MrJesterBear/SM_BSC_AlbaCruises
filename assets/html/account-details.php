@@ -46,7 +46,7 @@ Account Details Page.
                     <div class="col">
                         <input type="checkbox" id="confirm-delete-account" hidden />
                         <label id="delete-label" for="confirm-delete-account" class="text-danger" hidden> I confirm I
-                            want to delete my account. </label>
+                            want to delete my account. Once checked, click the delete button again. </label>
                     </div>
                 </div>
             </div>

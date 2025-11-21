@@ -78,7 +78,7 @@ CREATE TABLE AlbaBookings(
 	bookingID INT(10) PRIMARY KEY AUTO_INCREMENT,
     customerID INT(8) NOT NULL,
     totalPaid DECIMAL(6,2) NOT NULL,
-    FOREIGN KEY (customerID) REFERENCES AlbaCustomers(customerID)
+    FOREIGN KEY (customerID) REFERENCES AlbaCustomers(customerID) ON DELETE CASCADE
 );
 
 CREATE TABLE AlbaTickets(
@@ -89,7 +89,7 @@ CREATE TABLE AlbaTickets(
     bookingDate DATE NOT NULL,
     occupants INT (3) NOT NULL,
 	feeApplicable BOOLEAN NOT NULL DEFAULT false,
-    FOREIGN KEY (bookingID) REFERENCES AlbaBookings(bookingID),
+    FOREIGN KEY (bookingID) REFERENCES AlbaBookings(bookingID) ON DELETE CASCADE,
 	FOREIGN KEY (routeID) REFERENCES AlbaRoutes(routeID),
     FOREIGN KEY (timetableID) REFERENCES AlbaTimetable(timetableID)
 );
@@ -239,7 +239,29 @@ INSERT INTO AlbaStaff (firstName, lastName, email, password)
 Values 
 ("Rochele", "Whitty", "rochele.whitty@albacruises.scot", "$2y$10$VOKClqOX.klHAtzEXegR9OD8IWXnmeHovI6Dharux2vouc99s9qMa");
 
-SELECT * FROM AlbaTimetable;
+-- Test data for Jerald Davidson.
 
+INSERT INTO AlbaBookings(bookingID, customerID, totalPaid)
+VALUES 
+(1,1,18.00),
+(2,1,18.00),
+(3,1,12.60),
+(4,1,12.60),
+(5,1,18.00);
+
+INSERT INTO AlbaTickets(ticketID, bookingID, routeID, timetableID, bookingDate, occupants, feeApplicable)
+VALUES 
+(1,1,1,1,'2024-05-13',1,0),
+(2,1,7,12,'2024-05-14',1,0),
+(3,2,1,1,'2024-06-10',1,0),
+(4,2,7,4,'2024-06-14',1,0),
+(5,3,3,17,'2024-08-15',1,0),
+(6,4,5,2,'2024-09-20',1,0),
+(7,5,3,17,'2024-05-16',1,0),
+(8,5,4,18,'2024-05-23',1,0);
+
+
+SELECT * FROM AlbaTimetable;
+SELECT * FROM AlbaCustomers;
 SELECT * FROM AlbaBookings;
 SELECT * FROM AlbaTickets;

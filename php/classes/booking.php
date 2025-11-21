@@ -70,7 +70,7 @@ class bookingDisplay
         echo
             '<input type="checkbox" id="confirm-cancel-booking-' . $this->bookingID . '" hidden />',
             '<label id="cancel-label-' . $this->bookingID . '" for="confirm-cancel-booking-' . $this->bookingID . '" class="text-danger" hidden>',
-            ' I confirm I want to cancel my booking and will be charged an Administration Fee of £5 if sailing is within 24 hours. </input>';
+            ' I confirm I want to cancel my booking and will be charged an Administration Fee of £5 if sailing is within 24 hours. Once checked, click the cancel button again. </input>';
         // Close details.
         echo '</div>';
     }

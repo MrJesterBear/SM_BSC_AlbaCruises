@@ -1,6 +1,6 @@
 <!-- ? Name:  21005729 Saul Maylin
-? Date: 22/10/2025
-? v1
+? Date: 21/11/2025
+? v1.1
 ? Project: Alba Cruises
 ? -->
 
@@ -8,7 +8,7 @@
 <html lang="en">
 
 <head>
-  <title>Book | Alba Cruises</title>
+  <title>Confirmation | Alba Cruises</title>
 
   <!-- * Meta data for indexing-->
   <meta name="description" content="The home page for Alba Cruises." />
@@ -34,6 +34,16 @@
 
 
 </head>
+
+<?php
+// Double check user is not logged in.
+session_start();
+
+if (!isset($_SESSION['UID'])) {
+  // If user is not logged in, redirect to the home page.
+  header("Location: /");
+}
+?>
 
 <body class="bodyDefault">
 
@@ -66,15 +76,78 @@
   <!-- * Main Content -->
 
   <div class="container-fluid text-center">
-    <?php session_start();
-    // Check if user is logged in, otherwise redirect to login page.
-// also check if booking session exists.
-    if (!isset($_SESSION['UID'])) {
-      header("Location: login.php");
-    }
+    <?php
+    // also check if booking session exists. if it does, user was just redirected here after booking.
+    
     if (isset($_SESSION['bookingID'])) {
+      // Display booking confirmation message.
+    
+      // check if there is a type parameter in the URL.
+      if (isset($_GET['type']) && $_GET['type'] == 'edit') {
+        echo '<h2> Booking Edited Successfully! </h2>';
+      } else {
+        echo '<h2> Booking Confirmed Successfully! </h2>';
+      }
+
+      // Clear booking session variable to allow for more tickets to be purchased.
       unset($_SESSION['bookingID']);
+
     }
+
+    // Check if redirected here for another function.
+    
+    if (isset($_GET['type'])) {
+
+      require_once('./php/imports/connection.php');
+
+      switch ($_GET['type']) {
+        case 'cancelation':
+          // Delete booking from Database.
+          $bookingID = $_GET['bookingID'];
+          $stmt = $DB->prepare("DELETE FROM AlbaBookings WHERE bookingID = ?");
+          $stmt->bind_param("i", $bookingID);
+          if ($stmt->execute()) {
+            // redirect to account page with success if affected rows exist.
+            if ($stmt->affected_rows > 0) {
+              header("Location: /account.php?error=BOOK_CANCEL_SUCCESS");
+            } else {
+              // redirect to account page with error.
+              header("Location: /account.php?error=BOOK_CANCEL_FAIL");
+            }
+
+          } else {
+            // redirect to account page with error.
+            header("Location: /account.php?error=BOOK_CANCEL_FAIL");
+          }
+          break;
+
+        case 'deleteAccount':
+          // Delete user account from Database.
+          $UID = $_SESSION['UID'];
+
+          // Just delete the customer id, as the database is set to ondeletecascade for bookingid and customerid fks.
+          $stmt = $DB->prepare("DELETE FROM AlbaCustomers WHERE customerID = ?");
+          $stmt->bind_param("i", $UID);
+
+          if ($stmt->execute()) {
+            // redirect to login page with success if affected rows exist.
+            if ($stmt->affected_rows > 0) {
+              unset($_SESSION['UID']);
+              header("Location: /new-user.php?error=ACC_DEL_SUCCESS");
+            } else {
+              // redirect to account page with error.
+              header("Location: /account.php?error=ACC_DEL_FAIL");
+            }
+
+          } else {
+            // redirect to account page with error.
+            header("Location: /account.php?error=ACC_DEL_FAIL");
+          }
+          break;
+      }
+
+    }
+
     ?>
   </div>
 

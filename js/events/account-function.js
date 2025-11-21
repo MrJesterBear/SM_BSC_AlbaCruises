@@ -1,6 +1,6 @@
 // Saul Maylin 21005729
-// Date: 19/11/2025
-// v1.1
+// Date: 21/11/2025
+// v1.2
 // JS for Account Functions
 
 // Global Variables
@@ -23,16 +23,19 @@ function updateDetails(newEmail, newFirstName, newLastName) {
 
 // Delete Account Function
 function deleteAccount() {
-  const confirmCheckbox = document.getElementById("confirm-delete-account");
+  let confirmCheckbox = document.getElementById("confirm-delete-account");
 
   if (!confirmCheckbox.checked) {
+    console.log("Checkbox not checked.");
     // Show the checkbox and label if not already visible
     confirmCheckbox.hidden = false;
     const label = document.getElementById("delete-label");
     label.hidden = false;
-    return; // Exit the function to allow user to confirm
   } else {
     // Proceed with account deletion
+    console.log("Checkbox  checked.");
+
+    window.location.href = "./confirmation.php?type=deleteAccount";
   }
 }
 
@@ -82,5 +85,12 @@ function cancelBooking(bookingID) {
     return; // Exit the function to allow user to confirm
   } else {
     // Proceed with booking cancellation
+    window.location.href =
+      "./confirmation.php?type=cancelation&bookingID=" + bookingID;
   }
+}
+
+function printBooking(bookingID) {
+  // open new window to print booking.
+  window.open("./print-booking.php?bookingID=" + bookingID);
 }

@@ -1,7 +1,7 @@
 <?php
 //    Saul Maylin 21005729
-//    29/10/2025
-//    v1
+//    21/11/2025
+//    v1.1
 // Error handling switch case for displaying error messages.
 
 // If there is an error, display it.
@@ -29,6 +29,18 @@ if (isset($_GET['error'])) {
             break;
         case 'NOT_LOGGED_IN': // Not logged in for booking
             $errortext = "You must be logged in to complete a booking. Please log in or register an account first.";
+            break;
+        case 'ACC_DEL_SUCCESS':
+            $errortext = "The account has been successfully deleted. Thank you for using Alba Cruises.";
+            break;
+        case 'ACC_DEL_FAIL':
+            $errortext = "There was an error deleting your account. Please try again later.";
+            break;
+        case 'BOOK_CANCEL_SUCCESS':
+            $errortext = "Your booking has been successfully canceled. You will be charged £5 as a cancellation fee if there are less than 24 hours until your old sailing.";
+            break;
+        case 'BOOK_CANCEL_FAIL':
+            $errortext = "There was an error canceling your booking. Please try again later.";
             break;
         default:
             break;

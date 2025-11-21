@@ -1,6 +1,6 @@
 <!-- ? Name:  21005729 Saul Maylin
-? Date: 18/11/2025
-? v1.1
+? Date: 121/11/2025
+? v1.2
 ? Project: Alba Cruises
 ? -->
 
@@ -71,6 +71,12 @@ if (!isset($_SESSION['UID'])) {
       setNav();
     </script>
   </nav>
+
+  <!-- Error Warning -->
+  <?php
+  include_once("./php/imports/error-handling.php");
+  ?>
+
 
   <!-- * Main Content -->
   <!-- Using some exerpts from some of my old unfinished projects: https://github.com/MrJesterBear/Portfolio & https://github.com/MrJesterBear/Project-Crawler -->

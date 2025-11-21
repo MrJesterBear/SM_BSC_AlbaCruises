@@ -72,15 +72,17 @@ Account booking Page.
                                 }
                             }
 
-                            $lastBooking = 0;
-                            $i = 0;
-                            $counter = 0;
+                            $lastBooking = 0; // to track change in booking ids.
+                            $i = 0; // row counter 
+                            $counter = 0; // count bookings
+                            $loopNumber = 0; // count the loops
 
                             // Create objects to hold booking info in general.
                             $bookings = array();
 
                             // Display each ticket.
                             foreach ($tickets as $ticket) {
+                                $loopNumber++;
                                 if ($lastBooking != $ticket->getBookingID()) {
                                     // end previous booking row. for single tickets mainly.
                                     if ($i > 0) {
@@ -113,6 +115,12 @@ Account booking Page.
                                     $bookings[$counter]->setRouteNames($ticket->getRouteNames());
                                     $bookings[$counter]->setDepartDate($ticket->getBookingDate());
                                     $bookings[$counter]->setDepartureDepartTime($ticket->getDepartTime());
+                                
+                                    // if the final ticket in list, close the row.
+                                    if ($loopNumber == (count($tickets)) ) {
+                                        echo '</div>'; // close row and button.
+                                    }
+                                
                                 } else {
                                     // same booking, continue row.
                                     echo
