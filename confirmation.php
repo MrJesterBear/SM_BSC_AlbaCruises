@@ -38,7 +38,7 @@
 <?php
 // Double check user is not logged in.
 session_start();
-include('./php/imports/code-error.php');
+// include('./php/imports/code-error.php');
 
 if (!isset($_SESSION['UID'])) {
   // If user is not logged in, redirect to the home page.

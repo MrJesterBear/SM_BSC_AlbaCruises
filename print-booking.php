@@ -87,11 +87,6 @@ if (!isset($_SESSION['UID'])) {
         </script>
     </nav>
 
-    <!-- Error Warning -->
-    <?php
-    include_once("./php/imports/error-handling.php");
-    ?>
-
     <!-- * Main Content -->
 
     <div class="container-fluid text-center mt-4 mb-4">
@@ -99,7 +94,7 @@ if (!isset($_SESSION['UID'])) {
 
         // require the booking class.
         require('./php/classes/booking.php');
-        include('./php/imports/code-error.php');
+        // include('./php/imports/code-error.php');
 
         // Get booking ID from URL.
         $bookingID = $_GET['bookingID'];
@@ -130,7 +125,7 @@ if (!isset($_SESSION['UID'])) {
     </div>
 
     <script>
-        // Auto open print.
+        // Auto open print. https://developer.mozilla.org/en-US/docs/Web/API/Window/print
         document.addEventListener("DOMContentLoaded", function() {
             window.print();
         });
