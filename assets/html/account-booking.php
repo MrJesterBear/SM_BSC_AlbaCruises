@@ -161,9 +161,6 @@ Account booking Page.
 
                             }
 
-
-
-
                         } else { // No bookings found.
                             echo "<h3> It seems you have no bookings... </h3>";
                             echo "<p> Why not make one now? </p>";
@@ -186,6 +183,14 @@ Account booking Page.
                 <!-- Storage of ticket information. all hidden unless option selected -->
                 <?php
                 if (!empty($bookings)) {
+                    // Store bookings in a session - https://www.tutorialspoint.com/storing-objects-in-php-session
+                    $_SESSION['bookings'] = serialize($bookings); // Serialize the bookings array for session storage.
+
+                    // check if redirect to print.
+                    if (isset($_GET['redirect']) && $_GET['redirect'] == 'print' && isset($_GET['bookingID'])) {
+                        header('Location: /print-booking.php?bookingID=' . $_GET['bookingID']);
+                    }
+                        
                     foreach ($bookings as $trip) {
                         $trip->renderBooking();
                     }

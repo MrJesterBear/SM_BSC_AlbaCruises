@@ -78,3 +78,15 @@ Colour CSS
     display: none;
   }
 }
+
+/* # Source - https://stackoverflow.com/a
+# Posted by Diodeus - James MacFarlane, modified by community. See post 'Timeline' for change history
+# Retrieved 2025-11-21, License - CC BY-SA 4.0 */
+
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}

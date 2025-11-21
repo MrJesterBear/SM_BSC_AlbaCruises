@@ -1,13 +1,3 @@
-<?php
-// Double check user is  logged in.
-session_start();
-
-if (isset($_SESSION['UID'])) {
-  // If user is logged in, redirect to the account page.
-  header("Location: account.php");
-}
-?>
-
 <!-- ? Name:  21005729 Saul Maylin
 ? Date: 03/11/2025
 ? v2
@@ -21,7 +11,7 @@ if (isset($_SESSION['UID'])) {
   <title>New User | Alba Cruises</title>
 
   <!-- * Meta data for indexing-->
-  <meta name="description" content="The home page for Alba Cruises." />
+  <meta name="description" content="The login/register page for Alba Cruises." />
   <meta name="keywords" content="Alba, Cruises, Travel, Adventure, booking, ferry" />
   <meta name="author" content="21005729 Saul Maylin" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -47,6 +37,16 @@ if (isset($_SESSION['UID'])) {
 
 
 </head>
+
+<?php
+// Double check user is  logged in.
+session_start();
+
+if (isset($_SESSION['UID'])) {
+  // If user is logged in, redirect to the account page.
+  header("Location: account.php");
+}
+?>
 
 <body class="bodyDefault">
 

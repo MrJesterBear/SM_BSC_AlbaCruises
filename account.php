@@ -11,7 +11,7 @@
   <title>Account | Alba Cruises</title>
 
   <!-- * Meta data for indexing-->
-  <meta name="description" content="The home page for Alba Cruises." />
+  <meta name="description" content="The account page for Alba Cruises." />
   <meta name="keywords" content="Alba, Cruises, Travel, Adventure, booking, ferry" />
   <meta name="author" content="21005729 Saul Maylin" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />

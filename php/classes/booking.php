@@ -75,6 +75,40 @@ class bookingDisplay
         echo '</div>';
     }
 
+    public function renderPrintableBooking()
+    {
+        // Render a printable version of booking details here
+        $departDate = date_create($this->departDate);
+        if (!empty($this->returnDate)) {
+            $returnDate = date_create($this->returnDate);
+        }
+
+        echo
+            '<div class = "text-white main-background" id = "bookingDetails' . $this->bookingID . '">',
+            '<h3> Your Trip </h3>',
+            '<p> Date: ' . date_format($departDate, 'l - jS F Y') . '</p>';
+        // Figure out if return trip exists.
+        if (!isset($returnDate)) {
+            echo
+                '<p> Route: ' . $this->routeNames . '</p>',
+                '<p> Return: No Return Trip </p>',
+                '<p> Departure Time: ' . $this->departureDepartTime . '</p>';
+        } else {
+            // get both routes from substring.
+            // format ("Mallaig - Eigg,Eigg - Mallaig")
+            $delimPos = strpos($this->routeNames, ",");
+            $departRoute = substr($this->routeNames, 0, $delimPos);
+            $returnRoute = substr($this->routeNames, $delimPos + 1);
+
+            // Echo it out.
+            echo
+                '<p> Route: ' . $departRoute . '</p>',
+                '<p> Return: ' . $returnRoute . ' on ' . date_format($returnDate, 'l - jS F Y') . '</p>',
+                '<p> Departure Time: ' . $this->departureDepartTime . '</p>',
+                '<p> Return Departure Time: ' . $this->returnDepartTime . '</p>';
+        }
+    }
+
     public function getDepartTicketID()
     {
         return $this->departTicketID;

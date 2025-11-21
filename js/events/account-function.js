@@ -92,5 +92,10 @@ function cancelBooking(bookingID) {
 
 function printBooking(bookingID) {
   // open new window to print booking.
-  window.open("./print-booking.php?bookingID=" + bookingID);
+  if (document.URL.includes("confirmation.php")) {
+    window.open("/assets/html/account-booking.php?redirect=print&bookingID=" + bookingID);
+  } else {
+      window.open("./print-booking.php?bookingID=" + bookingID);
+
+  }
 }

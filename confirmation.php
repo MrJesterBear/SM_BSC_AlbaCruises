@@ -38,6 +38,7 @@
 <?php
 // Double check user is not logged in.
 session_start();
+include('./php/imports/code-error.php');
 
 if (!isset($_SESSION['UID'])) {
   // If user is not logged in, redirect to the home page.
@@ -77,7 +78,7 @@ if (!isset($_SESSION['UID'])) {
 
   <div class="container-fluid text-center">
     <?php
-    // also check if booking session exists. if it does, user was just redirected here after booking.
+    // check if booking session exists. if it does, user was just redirected here after booking.
     
     if (isset($_SESSION['bookingID'])) {
       // Display booking confirmation message.
@@ -86,12 +87,27 @@ if (!isset($_SESSION['UID'])) {
       if (isset($_GET['type']) && $_GET['type'] == 'edit') {
         echo '<h2> Booking Edited Successfully! </h2>';
       } else {
+        // Normal booking confirmation.
         echo '<h2> Booking Confirmed Successfully! </h2>';
+        echo '<p>Your booking has been successfully confirmed. Thank you for choosing Alba Cruises!</p>';
       }
+
+      // Run regardless of type parameter.
+      echo '<p> Your booking ID is: ' . $_SESSION['bookingID'] . '</p>';
+
+      // Buttons for printing or going to account page.
+            echo
+            '<div class="d-flex justify-content-center my-3">',
+            '<button class="btn primary-button" onclick="printBooking(' . $_SESSION['bookingID'] . ')">Print Booking</button>',
+            '<a class="btn primary-button" href="./account.php">Go to Your Account</a>',
+            '</div>';
 
       // Clear booking session variable to allow for more tickets to be purchased.
       unset($_SESSION['bookingID']);
 
+    } else {
+      // No booking session, redirect to tickets page.
+      header("Location: ./tickets.php");
     }
 
     // Check if redirected here for another function.
@@ -160,7 +176,8 @@ if (!isset($_SESSION['UID'])) {
     </script>
   </div>
 
-
+<!-- import script for the print button. -->
+ <script src="./js/events/account-function.js"></script>
 </body>
 
 </html>
