@@ -46,6 +46,11 @@ if (isset($_SESSION['UID'])) {
   // If user is logged in, redirect to the account page.
   header("Location: account.php");
 }
+
+if (isset($_SESSION['staff'])) {
+  // If user is staff, redirect to the staff dashboard.
+  header("Location: /administration.php");
+}
 ?>
 
 <body class="bodyDefault">
@@ -56,7 +61,7 @@ if (isset($_SESSION['UID'])) {
   <div class="nav-colour">
     <ul class="list-group list-group-horizontal justify-content-end">
       <li class="list-group-item"><a class="nav-link" href="#">Languages</a></li>
-      <li class="list-group-item"><a class="nav-link" href="/staff-login">Staff</a></li>
+      <li class="list-group-item"><a class="nav-link" href="/new-user.php">Staff</a></li>
     </ul>
   </div>
 

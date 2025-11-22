@@ -1,6 +1,6 @@
 <!-- ? Name:  21005729 Saul Maylin
-? Date: 22/10/2025
-? v1
+? Date: 22/11/2025
+? v1.1
 ? Project: Alba Cruises
 ? -->
 
@@ -35,6 +35,14 @@
 
 </head>
 
+<?php
+session_start();
+if (!isset($_SESSION['staff']) || $_SESSION['staff'] != true) {
+  // If user is not staff, redirect to the login page.
+  header("Location: /new-user.php");
+}
+?>
+
 <body class="bodyDefault">
 
   <!-- * Secondary nav, Image & Nav -->
@@ -43,7 +51,7 @@
   <div class="nav-colour">
     <ul class="list-group list-group-horizontal justify-content-end">
       <li class="list-group-item"><a class="nav-link" href="#">Languages</a></li>
-      <li class="list-group-item"><a class="nav-link" href="/staff-login">Staff</a></li>
+      <li class="list-group-item"><a class="nav-link" href="/new-user.php">Staff</a></li>
     </ul>
   </div>
 
@@ -66,7 +74,9 @@
   <!-- * Main Content -->
 
   <div class="container-fluid text-center">
-
+  <?php
+  echo $_SESSION['staff'];
+  ?>
   </div>
 
   <!-- Footer -->

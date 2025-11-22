@@ -26,10 +26,10 @@ switch ($_GET['type']) {
         // Check if the user can register an account with the provided details.
         if (!$user->checkDuplicate($DB)) {
             // If the user can register, attempt to register the account.
-            
+
             // Hash Password
-            $user->createHashPassword($user->getPassword()); 
-            
+            $user->createHashPassword($user->getPassword());
+
             if ($user->registerAccount($DB)) {
                 // If successful, set the session variables.
                 session_start();
@@ -64,6 +64,10 @@ switch ($_GET['type']) {
             $_SESSION['firstName'] = $user->getFirstName();
             $_SESSION['lastName'] = $user->getLastName();
             $_SESSION['email'] = $user->getEmail();
+
+            if ($user->getRole() == 'Staff') {
+                $_SESSION['staff'] = true;
+            }
 
             echo json_encode((array('error' => "NONE")));
 

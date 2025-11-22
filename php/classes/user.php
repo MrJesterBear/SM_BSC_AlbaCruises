@@ -14,6 +14,7 @@ class User
     private $passwordHash;
 
     private $UID;
+    private $role;
     private $error;
 
     public function __construct($email, $password)
@@ -67,7 +68,7 @@ class User
     public function loginAccount($DB)
     {
         // Prepare statement to check if the user exists.
-        $stmt = $DB->prepare("SELECT customerID, firstName, lastName, email, password FROM AlbaCustomers WHERE email = ?;");
+        $stmt = $DB->prepare("SELECT customerID, firstName, lastName, email, password, role FROM AlbaCustomers WHERE email = ?;");
         $stmt->bind_param("s", $this->email);
 
         // Execute
@@ -80,15 +81,16 @@ class User
             $lastName = null;
             $email = null;
             $passwordHash = null;
+            $role = null;
 
-            $stmt->bind_result($UID, $firstName, $lastName, $email, $passwordHash);
+            $stmt->bind_result($UID, $firstName, $lastName, $email, $passwordHash, $role);
             if ($stmt->fetch()) { // User found
                 $this->UID = $UID;
                 $this->firstName = $firstName;
                 $this->lastName = $lastName;
                 $this->email = $email;
                 $this->passwordHash = $passwordHash;
-
+                $this->role = $role;
                 // Verify password
                 if ($this->verifyPassword($this->password, $passwordHash)) {
                     $stmt->close();
@@ -196,6 +198,15 @@ class User
         return $this->password;
     }
 
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function setRole($role)
+    {
+        $this->role = $role;
+    }
 
 }
 
