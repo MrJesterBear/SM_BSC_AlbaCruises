@@ -37,7 +37,7 @@ export function setNav() {
     '<a class="nav-link border" href="/contact.html">Contact</a>' +
     "</li>";
 
-  if (document.URL.includes("/administration.php")) {
+  if (document.URL.includes("administration.php")) {
     // Acount link will be the actual account page instead for staff.
     navHTML +=
       '<li class="nav-item px-5">' +
