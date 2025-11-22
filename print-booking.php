@@ -67,7 +67,7 @@ if (!isset($_SESSION['UID'])) {
     <div class="no-print nav-colour">
         <ul class="list-group list-group-horizontal justify-content-end">
             <li class="list-group-item"><a class="nav-link" href="#">Languages</a></li>
-            <li class="list-group-item"><a class="nav-link" href="/staff-login">Staff</a></li>
+            <li class="list-group-item"><a class="nav-link" href="/new-user.php">Staff</a></li>
         </ul>
     </div>
 

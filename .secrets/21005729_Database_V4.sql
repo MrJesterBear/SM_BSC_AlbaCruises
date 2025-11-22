@@ -24,17 +24,18 @@ CREATE TABLE AlbaCustomers (
     email VARCHAR (300) NOT NULL,
     frequentCustomer BOOLEAN NOT NULL DEFAULT FALSE,
     password VARCHAR (255) NOT NULL,
-    onMailingList BOOLEAN NOT NULL DEFAULT TRUE
+    onMailingList BOOLEAN NOT NULL DEFAULT TRUE,
+    role ENUM("Customer", "Staff", "Manager") NOT NULL DEFAULT "Customer"
 );
 
-CREATE TABLE AlbaStaff (
-	StaffID INT(4) PRIMARY KEY AUTO_INCREMENT,
-    firstName VARCHAR(150) NOT NULL,
-    lastName VARCHAR (150) NOT NULL,
-    email VARCHAR (300) NOT NULL,
-    password VARCHAR (255) NOT NULL,
-    role ENUM("Staff", "Manager") NOT NULL DEFAULT "Staff"
-);
+-- CREATE TABLE AlbaStaff (
+-- 	StaffID INT(4) PRIMARY KEY AUTO_INCREMENT,
+--     firstName VARCHAR(150) NOT NULL,
+--     lastName VARCHAR (150) NOT NULL,
+--     email VARCHAR (300) NOT NULL,
+--     password VARCHAR (255) NOT NULL,
+--     role ENUM("Staff", "Manager") NOT NULL DEFAULT "Staff"
+-- );
 
 CREATE TABLE AlbaDestinations(
 	destinationID INT(3) PRIMARY KEY AUTO_INCREMENT,
@@ -235,9 +236,9 @@ Values
 ("Jerald", "Davidson", "jerald.davidson@hotmail.co.uk", "$2y$10$Q2lKqeJlPVgkIFTZzKubyuy5gmTcJ6C6auA4eMLl5G6h8fmDIVm4a"); 
 
 -- Test Staff User
-INSERT INTO AlbaStaff (firstName, lastName, email, password)
+INSERT INTO AlbaCustomers (firstName, lastName, email, password, role)
 Values 
-("Rochele", "Whitty", "rochele.whitty@albacruises.scot", "$2y$10$VOKClqOX.klHAtzEXegR9OD8IWXnmeHovI6Dharux2vouc99s9qMa");
+("Rochele", "Whitty", "rochele.whitty@albacruises.scot", "$2y$10$VOKClqOX.klHAtzEXegR9OD8IWXnmeHovI6Dharux2vouc99s9qMa", "Staff");
 
 -- Test data for Jerald Davidson.
 
@@ -265,3 +266,5 @@ SELECT * FROM AlbaTimetable;
 SELECT * FROM AlbaCustomers;
 SELECT * FROM AlbaBookings;
 SELECT * FROM AlbaTickets;
+SELECT * FROM AlbaRoutes;
+

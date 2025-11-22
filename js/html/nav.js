@@ -1,6 +1,6 @@
 // 21005729 Saul Maylin
-// 22/10/2025
-// v2
+// 22/11/2025
+// v2.1
 // Nav HTML.
 
 // Navbar Function.
@@ -35,11 +35,21 @@ export function setNav() {
     // Contact Link
     '<li class="nav-item px-5">' +
     '<a class="nav-link border" href="/contact.html">Contact</a>' +
-    "</li>" +
-    // Account Link
-    '<li class="nav-item px-5">' +
-    '<a class="nav-link border" href="/new-user.php">Account</a>' +
     "</li>";
+
+  if (document.URL.includes("administration.php")) {
+    // Acount link will be the actual account page instead for staff.
+    navHTML +=
+      '<li class="nav-item px-5">' +
+      '<a class="nav-link border" href="/account.php">Account</a>' +
+      "</li>";
+  } else {
+    // Account Link
+    navHTML +=
+      '<li class="nav-item px-5">' +
+      '<a class="nav-link border" href="/new-user.php">Account</a>' +
+      "</li>";
+  }
 
   // close up the nav and make inner html.
   navHTML += "</ul> </div>";
