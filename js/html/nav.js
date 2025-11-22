@@ -43,10 +43,10 @@ export function setNav() {
       '<li class="nav-item px-5">' +
       '<a class="nav-link border" href="/account.php">Account</a>' +
       "</li>";
-  } else;
-  {
+  } else {
     // Account Link
-    '<li class="nav-item px-5">' +
+    navHTML +=
+      '<li class="nav-item px-5">' +
       '<a class="nav-link border" href="/new-user.php">Account</a>' +
       "</li>";
   }
