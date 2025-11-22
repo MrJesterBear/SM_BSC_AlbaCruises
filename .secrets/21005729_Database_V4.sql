@@ -266,3 +266,5 @@ SELECT * FROM AlbaTimetable;
 SELECT * FROM AlbaCustomers;
 SELECT * FROM AlbaBookings;
 SELECT * FROM AlbaTickets;
+SELECT * FROM AlbaRoutes;
+
