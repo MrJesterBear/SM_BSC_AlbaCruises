@@ -231,6 +231,6 @@ function bookReturn() {
   } else {
     // If there is no return, just redirect to the book-ticket page.
     console.log("No return booking needed, redirecting to book-ticket page.");
-    window.location.href = "./book-ticket.php";
+    window.location.href = "./confirmation.php";
   }
 }
