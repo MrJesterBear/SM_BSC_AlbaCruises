@@ -90,9 +90,14 @@ function cancelBooking(bookingID) {
   }
 }
 
+function editBooking(bookingID) {
+window.location.href = "./change-booking.php?bookingID=" + bookingID;
+}
+
 function printBooking(bookingID) {
   // open new window to print booking.
   if (document.URL.includes("confirmation.php")) {
+    // If on confirmation page, need to go to the account booking page to get the booking details.
     window.open("/assets/html/account-booking.php?redirect=print&bookingID=" + bookingID);
   } else {
       window.open("./print-booking.php?bookingID=" + bookingID);

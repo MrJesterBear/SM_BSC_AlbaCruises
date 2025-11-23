@@ -80,12 +80,21 @@ if (!isset($_SESSION['UID'])) {
     <?php
     // check if booking session exists. if it does, user was just redirected here after booking.
     
-    if (isset($_SESSION['bookingID'])) {
+    if (isset($_SESSION['bookingID']) || isset($_SESSION['selectedBookingID'])) {
       // Display booking confirmation message.
-    
+      // echo $_SESSION['selectedBookingID'];
       // check if there is a type parameter in the URL.
       if (isset($_GET['type']) && $_GET['type'] == 'edit') {
+        // Clear edit session variables.
+        unset($_SESSION['departTicketID']);
+        unset($_SESSION['returnTicketID']);
+        unset($_SESSION['updateCounter']);
+        $_SESSION['bookingID'] = $_SESSION['selectedBookingID']; // for buttons sake.
+        // echo $_SESSION['bookingID'];
+        unset($_SESSION['selectedBookingID']);
+
         echo '<h2> Booking Edited Successfully! </h2>';
+        echo '<p>Your booking has been successfully updated. Thank you for choosing Alba Cruises!</p>';
       } else {
         // Normal booking confirmation.
         echo '<h2> Booking Confirmed Successfully! </h2>';
@@ -96,14 +105,15 @@ if (!isset($_SESSION['UID'])) {
       echo '<p> Your booking ID is: ' . $_SESSION['bookingID'] . '</p>';
 
       // Buttons for printing or going to account page.
-            echo
-            '<div class="d-flex justify-content-center my-3">',
-            '<button class="btn primary-button" onclick="printBooking(' . $_SESSION['bookingID'] . ')">Print Booking</button>',
-            '<a class="btn primary-button" href="./account.php">Go to Your Account</a>',
-            '</div>';
+      echo
+        '<div class="d-flex justify-content-center my-3">',
+        '<button class="btn primary-button" onclick="printBooking(' . $_SESSION['bookingID'] . ')">Print Booking</button>',
+        '<a class="btn primary-button" href="./account.php">Go to Your Account</a>',
+        '</div>';
 
       // Clear booking session variable to allow for more tickets to be purchased.
       unset($_SESSION['bookingID']);
+
 
     } else {
       // No booking session, redirect to tickets page.
@@ -176,8 +186,8 @@ if (!isset($_SESSION['UID'])) {
     </script>
   </div>
 
-<!-- import script for the print button. -->
- <script src="./js/events/account-function.js"></script>
+  <!-- import script for the print button. -->
+  <script src="./js/events/account-function.js"></script>
 </body>
 
 </html>
