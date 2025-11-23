@@ -1,6 +1,6 @@
 // Saul Maylin
-// 13/11/2025
-// v1.1
+// 23/11/2025
+// v1.2
 // Form handling for user booking via ajax.
 
 class booking {
@@ -27,7 +27,7 @@ class booking {
     this.departDate = departDate;
 
     // Calculate total occupants.
-    this.occupants = (adults + teens + children + infants);
+    this.occupants = adults + teens + children + infants;
   }
 
   bookSailing() {
@@ -68,11 +68,11 @@ class booking {
       error: function (xhr, status, error) {
         console.error("Error processing booking:");
         return false;
-      }
+      },
     });
   }
 
-    bookReturn() {
+  bookReturn() {
     $.ajax({
       url: "./php/server/booking-process.php", // Where request is sent
       type: "POST", // Type of request
@@ -109,7 +109,103 @@ class booking {
       error: function (xhr, status, error) {
         console.error("Error processing booking:");
         return false;
-      }
+      },
+    });
+  }
+
+  // For updating existing bookings.
+
+  updateDepart() {
+    $.ajax({
+      url: "./php/server/update-booking.php", // Where request is sent
+      type: "POST", // Type of request
+      data: {
+        // Post Variables
+        timetableID: this.timetableID,
+        callingName: this.callingName,
+        destinationName: this.destinationName,
+        departDate: this.departDate,
+        occupants: this.occupants,
+      },
+      success: function (data) {
+        // When the php file has been executed succesfully.
+        console.log("booking response:", data);
+        switch (data.error) {
+          case "ferry_not_found":
+            console.log("Ferry not found.");
+            break;
+
+          case "booking_failed":
+            console.log("Booking failed.");
+            break;
+
+          case "not_logged_in":
+            console.log("User not logged in.");
+            window.location.href = "./new-user.php?error=NOT_LOGGED_IN";
+            break;
+
+          case "update_failed":
+            console.log("Booking update failed.");
+            windows.location.href = "./account.php?error=UPDATE_FAILED";
+            break;
+
+          case "NONE":
+            console.log("Ticket booked successfully.");
+            bookReturn();
+            break;
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error processing booking:");
+        return false;
+      },
+    });
+  }
+
+  updateReturn() {
+    $.ajax({
+      url: "./php/server/update-booking.php", // Where request is sent
+      type: "POST", // Type of request
+      data: {
+        // Post Variables
+        timetableID: this.timetableID,
+        callingName: this.callingName,
+        destinationName: this.destinationName,
+        departDate: this.departDate,
+        occupants: this.occupants,
+      },
+      success: function (data) {
+        // When the php file has been executed succesfully.
+        console.log("booking response:", data);
+        switch (data.error) {
+          case "ferry_not_found":
+            console.log("Ferry not found.");
+            break;
+
+          case "booking_failed":
+            console.log("Booking failed.");
+            break;
+
+          case "not_logged_in":
+            console.log("User not logged in.");
+            window.location.href = "./new-user.php?error=NOT_LOGGED_IN";
+            break;
+
+          case "update_failed":
+            console.log("Booking update failed.");
+            windows.location.href = "./account.php?error=UPDATE_FAILED";
+            break;
+
+          case "NONE":
+            console.log("Ticket booked successfully.");
+            window.location.href = "./confirmation.php?type=edit";
+            break;
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error processing booking:");
+        return false;
+      },
     });
   }
 

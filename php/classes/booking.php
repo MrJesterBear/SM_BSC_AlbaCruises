@@ -92,7 +92,8 @@ class bookingDisplay
             echo
                 '<p> Route: ' . $this->routeNames . '</p>',
                 '<p> Return: No Return Trip </p>',
-                '<p> Departure Time: ' . $this->departureDepartTime . '</p>';
+                '<p> Departure Time: ' . $this->departureDepartTime . '</p>',
+            '</div>';
         } else {
             // get both routes from substring.
             // format ("Mallaig - Eigg,Eigg - Mallaig")
@@ -105,7 +106,8 @@ class bookingDisplay
                 '<p> Route: ' . $departRoute . '</p>',
                 '<p> Return: ' . $returnRoute . ' on ' . date_format($returnDate, 'l - jS F Y') . '</p>',
                 '<p> Departure Time: ' . $this->departureDepartTime . '</p>',
-                '<p> Return Departure Time: ' . $this->returnDepartTime . '</p>';
+                '<p> Return Departure Time: ' . $this->returnDepartTime . '</p>',
+            '</div>';
         }
     }
 

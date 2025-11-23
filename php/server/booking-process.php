@@ -1,14 +1,14 @@
 <?php
 // Saul Maylin
-// 13/11/2025
-// v1
+// 23/11/2025
+// v1.1
 // Creating booking and tickets
 
 header('content-type: text/json');
 
 // Include connection
 include('../imports/connection.php');
-include('../imports/code-error.php');
+// include('../imports/code-error.php');
 session_start();
 
 // Check if user is logged in, otherwise say goodbye.

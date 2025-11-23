@@ -1,7 +1,7 @@
 // Saul Maylin 21005729
 // Booking Buttons Script
-// 17/11/2025
-// v1.2
+// 23/11/2025
+// v2
 
 // One way / Return buttons
 
@@ -56,7 +56,10 @@ document.addEventListener("DOMContentLoaded", () => {
   //     }
   //   });
 
-  if (document.URL.includes("tickets.php")) {
+  if (
+    document.URL.includes("tickets.php") ||
+    document.URL.includes("change-booking.php")
+  ) {
     // Update the values based on the URL parameters https://www.sitepoint.com/get-url-parameters-with-javascript/
     let urlParams = new URLSearchParams(window.location.search);
 
@@ -121,5 +124,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
     returnDateInput.value = returnDate;
+  }
+
+  // Change the form submit action to become change-booking.php if on the change-booking.php page.
+  if (document.URL.includes("change-booking.php")) {
+    const form = document.getElementById("booking-search-form");
+    form.setAttribute("action", "/change-booking.php");
   }
 });

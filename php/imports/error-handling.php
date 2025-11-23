@@ -1,7 +1,7 @@
 <?php
 //    Saul Maylin 21005729
-//    21/11/2025
-//    v1.1
+//    23/11/2025
+//    v1.2
 // Error handling switch case for displaying error messages.
 
 // If there is an error, display it.
@@ -41,6 +41,9 @@ if (isset($_GET['error'])) {
             break;
         case 'BOOK_CANCEL_FAIL':
             $errortext = "There was an error canceling your booking. Please try again later.";
+            break;
+        case 'UPDATE_FAILED':
+            $errortext = "There was an error updating your booking. Please try again later.";
             break;
         default:
             break;

@@ -1,6 +1,6 @@
 //   Saul Maylin 21005729
-//   17/11/2025
-//   v1
+//   23/11/2025
+//   v1.1
 //   Project: Alba Cruises
 //   Booking select events script
 
@@ -219,7 +219,11 @@ function checkSelections() {
 function bookTickets() {
   console.log("Booking Tickets...");
   console.log("Departure " + departure.toString());
-  departure.bookSailing();
+  if (document.URL.includes("change-booking.php")) {
+    departure.updateDepart();
+  } else {
+    departure.bookSailing();
+  }
 }
 
 // Run by the ajax function to book the return.
@@ -227,10 +231,20 @@ function bookReturn() {
   if (returnSelected != null) {
     // do the return booking.
     console.log("Return " + returning.toString());
-    returning.bookReturn();
+
+    if (document.URL.includes("change-booking.php")) {
+      returning.updateReturn();
+    } else {
+      returning.bookReturn();
+    }
   } else {
-    // If there is no return, just redirect to the book-ticket page.
-    console.log("No return booking needed, redirecting to book-ticket page.");
-    window.location.href = "./confirmation.php";
+    // If there is no return, just redirect to the confirmation page.
+    console.log("No return booking needed, redirecting to confirmation page.");
+
+    if (document.URL.includes("change-booking.php")) {
+      window.location.href = "./confirmation.php?type=edit";
+    } else {
+      window.location.href = "./confirmation.php";
+    }
   }
 }
