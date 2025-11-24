@@ -1,21 +1,20 @@
 -- Saul Maylin
 -- Alba Cruises
--- V3
--- 15/11/2025
+-- V5
+-- 23/11/2025
  
--- CREATE DATABASE 21005729_AlbaCruises;
+CREATE DATABASE IF NOT EXISTS 21005729_AlbaCruises;
 
 USE 21005729_AlbaCruises;
 
-DROP TABLE IF EXISTS AlbaTimetable;
 DROP TABLE IF EXISTS AlbaFares;
 DROP TABLE IF EXISTS AlbaTickets;
 DROP TABLE IF EXISTS AlbaBookings;
 DROP TABLE IF EXISTS AlbaCustomers;
 DROP TABLE IF EXISTS AlbaStaff;
+DROP TABLE IF EXISTS AlbaTimetable;
 DROP TABLE IF EXISTS AlbaRoutes;
 DROP TABLE IF EXISTS AlbaDestinations;
-
 
 -- Create Statements 
 CREATE TABLE AlbaCustomers (
@@ -25,16 +24,8 @@ CREATE TABLE AlbaCustomers (
     email VARCHAR (300) NOT NULL,
     frequentCustomer BOOLEAN NOT NULL DEFAULT FALSE,
     password VARCHAR (255) NOT NULL,
-    onMailingList BOOLEAN NOT NULL DEFAULT TRUE
-);
-
-CREATE TABLE AlbaStaff (
-	StaffID INT(4) PRIMARY KEY AUTO_INCREMENT,
-    firstName VARCHAR(150) NOT NULL,
-    lastName VARCHAR (150) NOT NULL,
-    email VARCHAR (300) NOT NULL,
-    password VARCHAR (255) NOT NULL,
-    role ENUM("Staff", "Manager") NOT NULL DEFAULT "Staff"
+    onMailingList BOOLEAN NOT NULL DEFAULT TRUE,
+    role ENUM("Customer", "Staff", "Manager") NOT NULL DEFAULT "Customer"
 );
 
 CREATE TABLE AlbaDestinations(
@@ -78,20 +69,21 @@ CREATE TABLE AlbaTimetable(
 CREATE TABLE AlbaBookings(
 	bookingID INT(10) PRIMARY KEY AUTO_INCREMENT,
     customerID INT(8) NOT NULL,
-    FOREIGN KEY (customerID) REFERENCES AlbaCustomers(customerID)
+    totalPaid DECIMAL(6,2) NOT NULL,
+    FOREIGN KEY (customerID) REFERENCES AlbaCustomers(customerID) ON DELETE CASCADE
 );
 
 CREATE TABLE AlbaTickets(
 	ticketID INT(10) PRIMARY KEY AUTO_INCREMENT,
     bookingID INT(10) NOT NULL,
-    destinationID INT(3) NOT NULL,
     routeID INT(3) NOT NULL,
+    timetableID INT (3) NOT NULL,
     bookingDate DATE NOT NULL,
     occupants INT (3) NOT NULL,
 	feeApplicable BOOLEAN NOT NULL DEFAULT false,
-    FOREIGN KEY (bookingID) REFERENCES AlbaBookings(bookingID),
-    FOREIGN KEY (destinationID) REFERENCES AlbaDestinations(destinationID),
-	FOREIGN KEY (routeID) REFERENCES AlbaRoutes(routeID)
+    FOREIGN KEY (bookingID) REFERENCES AlbaBookings(bookingID) ON DELETE CASCADE,
+	FOREIGN KEY (routeID) REFERENCES AlbaRoutes(routeID),
+    FOREIGN KEY (timetableID) REFERENCES AlbaTimetable(timetableID)
 );
 
 -- Insert Statements
@@ -235,18 +227,27 @@ Values
 ("Jerald", "Davidson", "jerald.davidson@hotmail.co.uk", "$2y$10$Q2lKqeJlPVgkIFTZzKubyuy5gmTcJ6C6auA4eMLl5G6h8fmDIVm4a"); 
 
 -- Test Staff User
-INSERT INTO AlbaStaff (firstName, lastName, email, password)
+INSERT INTO AlbaCustomers (firstName, lastName, email, password, role)
 Values 
-("Rochele", "Whitty", "rochele.whitty@albacruises.scot", "$2y$10$VOKClqOX.klHAtzEXegR9OD8IWXnmeHovI6Dharux2vouc99s9qMa");
+("Rochele", "Whitty", "rochele.whitty@albacruises.scot", "$2y$10$VOKClqOX.klHAtzEXegR9OD8IWXnmeHovI6Dharux2vouc99s9qMa", "Staff");
 
+-- Test data for Jerald Davidson.
 
--- php queries
--- Find if there is a departing ferry from the needed place. 
+INSERT INTO AlbaBookings(bookingID, customerID, totalPaid)
+VALUES 
+(1,1,18.00),
+(2,1,18.00),
+(3,1,12.60),
+(4,1,12.60),
+(5,1,18.00);
 
-SELECT timetableID
-FROM AlbaTimetable
-WHERE routeID = (SELECT routeID FROM AlbaRoutes WHERE callingID = 1 AND destinationID = 4)
-AND '2024-05-13' between timetableStart and timetableEnd
-AND FIND_IN_SET("Monday", AlbaTimetable.dayOfTravel) > 0 ;
-
-SELECT routeID FROM AlbaRoutes WHERE callingID = 1 AND destinationID = 2;
+INSERT INTO AlbaTickets(ticketID, bookingID, routeID, timetableID, bookingDate, occupants, feeApplicable)
+VALUES 
+(1,1,1,1,'2024-05-13',1,0),
+(2,1,7,12,'2024-05-14',1,0),
+(3,2,1,1,'2024-06-10',1,0),
+(4,2,7,4,'2024-06-14',1,0),
+(5,3,3,17,'2024-08-15',1,0),
+(6,4,5,2,'2024-09-20',1,0),
+(7,5,3,17,'2024-05-16',1,0),
+(8,5,4,18,'2024-05-23',1,0);
